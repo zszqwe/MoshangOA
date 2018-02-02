@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AB416381-46D8-40A9-A773-62C8B809F9C1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Moshang.OA.BLL</RootNamespace>
+    <AssemblyName>Moshang.OA.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="OrderInfoService.cs" />
+    <Compile Include="UserInfoService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Moshang.OA.DALFactory\Moshang.OA.DALFactory.csproj">
+      <Project>{03FB33D5-3E30-4681-8132-B600D2894D63}</Project>
+      <Name>Moshang.OA.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moshang.OA.EFDAL\Moshang.OA.EFDAL.csproj">
+      <Project>{2813E5A8-AFAC-4126-953C-FEF832CF729B}</Project>
+      <Name>Moshang.OA.EFDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moshang.OA.IBLL\Moshang.OA.IBLL.csproj">
+      <Project>{362d1ed6-fc00-4e00-9923-3a6b30630c3f}</Project>
+      <Name>Moshang.OA.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moshang.OA.IDAL\Moshang.OA.IDAL.csproj">
+      <Project>{C67A22EE-DC52-4FC1-B707-88B0ED019EFF}</Project>
+      <Name>Moshang.OA.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Moshang.OA.Model\Moshang.OA.Model.csproj">
+      <Project>{E7742DF3-245D-443F-BDFF-514570EE6D59}</Project>
+      <Name>Moshang.OA.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
