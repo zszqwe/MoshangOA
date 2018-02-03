@@ -16,6 +16,9 @@ namespace Moshang.OA.UI.Portal
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //读取配置 进行初始化
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

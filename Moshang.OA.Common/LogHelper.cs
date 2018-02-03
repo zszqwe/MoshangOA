@@ -22,8 +22,9 @@ namespace Moshang.OA.Common
             //WriteLogDalFunc += WriteLogMongodb;
             //从队列中获取错误信息 写到日志中
 
-            LofWriterList.Add(new TextFileWriter());
-            LofWriterList.Add(new SqlServerWriter());
+            //LofWriterList.Add(new TextFileWriter());
+            //LofWriterList.Add(new SqlServerWriter());
+            LofWriterList.Add(new Log4NetWriter());
 
             ThreadPool.QueueUserWorkItem(o =>
             {
