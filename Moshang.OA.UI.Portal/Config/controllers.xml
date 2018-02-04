@@ -9,5 +9,7 @@
     <property name="OrderInfoService" ref="OrderInfoService" />
   </object>
 
-
+  <object type="Moshang.OA.UI.Portal.Controllers.UserLoginController, Moshang.OA.UI.Portal" singleton="false" >
+    <property name="UserInfoService" ref="UserInfoService" />
+  </object>
 </objects>

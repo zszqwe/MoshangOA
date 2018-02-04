@@ -10,6 +10,10 @@ namespace Moshang.OA.UI.Portal.Controllers
     {
         public ActionResult Index()
         {
+            //if (Session["LoginUser"] == null)
+            //{
+            //    return RedirectToAction("Index","UserLogin");
+            //}
             return View();
         }
 
