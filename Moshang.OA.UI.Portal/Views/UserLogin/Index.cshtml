@@ -175,7 +175,7 @@
 </head>
 <body style="padding: 10px">
 
-    @Ajax.BeginForm("ProcessLogin", "UserLogin", new AjaxOptions() { OnSuccess = "afterLogin" })
+    @using(Ajax.BeginForm("ProcessLogin", "UserLogin", new AjaxOptions() { OnSuccess = "afterLogin" }))
     {
 
     <div id="login">
