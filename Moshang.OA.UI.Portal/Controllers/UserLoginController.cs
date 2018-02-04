@@ -10,8 +10,13 @@ using Moshang.OA.UI.Portal.Models;
 namespace Moshang.OA.UI.Portal.Controllers
 {
     [LoginCheckFilter(IsChecked =false)]
-    public class UserLoginController : Controller
+    public class UserLoginController : BaseController
     {
+        public UserLoginController()
+        {
+            this.IsCheckedUserLogin = false;
+        }
+
         // GET: UserLogin
         public ActionResult Index()
         {
@@ -42,6 +47,10 @@ namespace Moshang.OA.UI.Portal.Controllers
             string strCode = Request["vCode"];
             string sessionCode = Session["VCode"] as string;
             Session["VCode"] = null;
+            if (strCode == "")
+            {
+                return Content("验证码不能为空");
+            }
             if (string.IsNullOrEmpty(sessionCode)|| strCode != sessionCode)
             {
                 return Content("验证码错误");

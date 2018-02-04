@@ -9,7 +9,7 @@ using Moshang.OA.Model;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
-    public class UserInfoController : Controller
+    public class UserInfoController : BaseController
     {
         // GET: UserInfo
         //UserInfoService UserInfoService =new UserInfoService();

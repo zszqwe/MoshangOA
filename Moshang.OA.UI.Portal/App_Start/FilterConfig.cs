@@ -9,7 +9,7 @@ namespace Moshang.OA.UI.Portal
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new LoginCheckFilterAttribute() { IsChecked = true })
+            //filters.Add(new LoginCheckFilterAttribute() { IsChecked = true })
             ;
         }
     }

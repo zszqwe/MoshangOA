@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
-    public class BaseController:Controller
+    public class BaseController : Controller
     {
-
-        //在当前控制器中所有方法执行前所执行的代码
+        // GET: Base 在当前控制器中所有方法执行前执行
         public bool IsCheckedUserLogin = true;
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
