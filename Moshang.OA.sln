@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T4Deoms", "T4Deoms\T4Deoms.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetDemo", "Log4NetDemo\Log4NetDemo.csproj", "{E4723027-0EAB-47EB-941A-66A87525FD4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemcacheDemo", "MemcacheDemo\MemcacheDemo.csproj", "{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{E4723027-0EAB-47EB-941A-66A87525FD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4723027-0EAB-47EB-941A-66A87525FD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4723027-0EAB-47EB-941A-66A87525FD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{76709D33-69D8-4437-B6C0-7642170E2270} = {BF6DE84B-61B3-49B4-89AD-548B10A3A052}
 		{172E479C-05A5-4EE0-AF2E-BB202681FF52} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
 		{E4723027-0EAB-47EB-941A-66A87525FD4D} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
+		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {772BA907-EC65-4CA6-8694-2C0DD64C4A68}
