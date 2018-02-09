@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log4NetDemo", "Log4NetDemo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemcacheDemo", "MemcacheDemo\MemcacheDemo.csproj", "{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisDemo", "RedisDemo\RedisDemo.csproj", "{B63FCEEF-E5B5-475D-B122-4D2073E342F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B63FCEEF-E5B5-475D-B122-4D2073E342F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B63FCEEF-E5B5-475D-B122-4D2073E342F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B63FCEEF-E5B5-475D-B122-4D2073E342F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B63FCEEF-E5B5-475D-B122-4D2073E342F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{172E479C-05A5-4EE0-AF2E-BB202681FF52} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
 		{E4723027-0EAB-47EB-941A-66A87525FD4D} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
 		{BD41E31A-D4E4-4312-ADD1-B8606C75EBED} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
+		{B63FCEEF-E5B5-475D-B122-4D2073E342F5} = {90D670FB-699F-45F7-AFD8-ED3C6B477351}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {772BA907-EC65-4CA6-8694-2C0DD64C4A68}
