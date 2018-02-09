@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  
+  
+  <!--Memcache分布式缓存配置-->
+  <object name="CacheWriter" type="Moshang.OA.Common.Cache.MemcacheWriter,Moshang.OA.Common" singleton="false" >
+  </object>
+  
+  <!--单机缓存配置-->
+  <!--<object name="CacheWriter" type="Moshang.OA.Common.Cache.HttpRuntimeCacheWriter,Moshang.OA.Common" singleton="false" >
+  </object>-->
+
+  
+  
+  <object name="CacheHelper" type="Moshang.OA.Common.Cache.CacheHelper,Moshang.OA.Common" singleton="false" >
+    <property name="CacheWriter" ref="CacheWriter" />
+  </object>
+  
+</objects>

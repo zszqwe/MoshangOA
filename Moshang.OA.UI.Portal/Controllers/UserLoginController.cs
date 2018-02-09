@@ -5,17 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using Moshang.OA.Common;
 using Moshang.OA.IBLL;
+using Moshang.OA.Model;
 using Moshang.OA.UI.Portal.Models;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
     [LoginCheckFilter(IsChecked =false)]
-    public class UserLoginController : BaseController
+    public class UserLoginController : Controller
     {
-        public UserLoginController()
-        {
-            this.IsCheckedUserLogin = false;
-        }
+        //public UserLoginController()
+        //{
+        //    this.IsCheckUserLogin = false;
+        //}
 
         // GET: UserLogin
         public ActionResult Index()
@@ -67,11 +68,20 @@ namespace Moshang.OA.UI.Portal.Controllers
                 //没有查出数据
                 return Content("用户名或密码错误");
             }
-            else
-            {
-                Session["LoginUser"] = userInfos;
-                return Content("登陆成功");
-            }
+
+            //登陆成功将用户信息存储
+            //Session["LoginUser"] = userInfos;
+
+            #region Memchache+Cookie方式
+            //分配Guid标志作为Key 对象放置mm Guid写值Cookie中
+            string userLoginId=Guid.NewGuid().ToString();
+            Common.Cache.CacheHelper.AddCache(userLoginId,userInfos, DateTime.Now.AddMinutes(20));
+            Response.Cookies["userLoginId"].Value = userLoginId;
+            #endregion
+
+
+            return Content("登陆成功");
+            
         }
         #endregion
     }

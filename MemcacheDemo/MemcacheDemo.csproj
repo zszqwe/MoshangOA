@@ -61,6 +61,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Moshang.OA.IBLL\Moshang.OA.IBLL.csproj">
+      <Project>{362D1ED6-FC00-4E00-9923-3A6B30630C3F}</Project>
+      <Name>Moshang.OA.IBLL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

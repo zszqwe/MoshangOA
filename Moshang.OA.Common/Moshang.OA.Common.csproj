@@ -30,11 +30,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.1.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.NET\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Commons">
+      <HintPath>..\packages\Memcached\Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\Memcached\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\Log4Net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Memcached.ClientLibrary">
+      <HintPath>..\packages\Memcached\Memcached.ClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=2.0.0.40000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Spring.Core.2.0.1\lib\net45\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -46,6 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheHelper.cs" />
+    <Compile Include="Cache\HttpRuntimeCacheWriter.cs" />
+    <Compile Include="Cache\ICacheWriter.cs" />
+    <Compile Include="Cache\MemcacheWriter.cs" />
     <Compile Include="ILogwriter.cs" />
     <Compile Include="Log4NetWriter.cs" />
     <Compile Include="LogHelper.cs" />
