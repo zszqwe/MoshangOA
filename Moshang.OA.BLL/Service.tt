@@ -1,0 +1,7 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+
+<#@ output extension=".txt"#>
+
+<#
+	const string inputFile = @"..\\Moshang.OA.Model\\DataModel.edmx";
+#>

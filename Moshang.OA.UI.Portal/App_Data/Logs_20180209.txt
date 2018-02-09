@@ -83,3 +83,5 @@ System.IO.IOException: SerializationException thrown while trying to deserialize
    --- 内部异常堆栈跟踪的结尾 ---
    在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
    在 Memcached.ClientLibrary.MemcachedClient.Get(String key, Object hashCode, Boolean asString)
+
+----------------------footer--------------------------
