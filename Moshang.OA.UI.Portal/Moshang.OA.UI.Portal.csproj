@@ -243,6 +243,9 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\7_7.jpg" />
+    <Content Include="Content\Images\bg3.png" />
+    <Content Include="Content\Images\big.png" />
     <Content Include="Content\Images\login\HeadBack.jpg" />
     <Content Include="Content\Images\login\login-btn.gif" />
     <Content Include="Content\Images\login\panel-c.gif" />
@@ -253,6 +256,7 @@
     <Content Include="Content\Images\Home\applebg.jpg" />
     <Content Include="Content\Images\Home\Program Files Folder.png" />
     <Content Include="Content\Images\Home\Xp-G5 006.png" />
+    <Content Include="Content\Images\logo.gif" />
     <Content Include="Content\LigerUI\lab\formdesign\group.gif" />
     <Content Include="Content\LigerUI\lab\formdesign\index.htm" />
     <Content Include="Content\LigerUI\lab\formdesign\style.css" />
