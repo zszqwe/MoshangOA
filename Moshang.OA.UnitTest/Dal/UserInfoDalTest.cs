@@ -16,9 +16,7 @@ namespace Moshang.OA.UnitTest.Dal
     {
         public UserInfoDalTest()
         {
-            //
-            //TODO:  在此处添加构造函数逻辑
-            //
+
         }
 
         private TestContext testContextInstance;
@@ -64,10 +62,6 @@ namespace Moshang.OA.UnitTest.Dal
         [TestMethod]
         public void TestGetUsers()
         {
-            //
-            // TODO:  在此处添加测试逻辑
-            //
-
             UserInfoDal dal=new UserInfoDal();
             //单元测试必须自己处理数据 不能依赖第三方数据，如果以来数据那么先自己创建数据，然后用完之后再清除数据
             for (var i = 0; i < 10; i++)

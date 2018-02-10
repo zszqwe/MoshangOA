@@ -18,6 +18,9 @@ namespace Moshang.OA.UI.Portal.Controllers
             base.OnActionExecuting(filterContext);
 
 
+            //TODO: 暂时去掉验证
+            return;
+
             if (IsCheckUserLogin)
             {
                 //Memchache+Cookie方式
