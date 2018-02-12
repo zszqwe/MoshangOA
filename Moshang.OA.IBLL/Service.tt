@@ -1,0 +1,48 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF6.Utility.CS.ttinclude"#>
+<#@ output extension=".txt"#>
+
+
+<#
+const string inputFile = @"..\\Moshang.OA.Model\\DataModel.edmx";
+	
+var textTransform = DynamicTextTransformation.Create(this);
+var code = new CodeGenerationTools(this);
+var ef = new MetadataTools(this);
+var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
+var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
+var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
+var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
+
+if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
+{
+    return string.Empty;
+}
+
+#>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Moshang.OA.Model;
+using Moshang.OA.IDAL;
+
+namespace Moshang.OA.BLL
+{
+   
+<#
+// Emit Entity Types
+
+//foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+//{
+foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
+{
+#>	
+	public partial interface I<#=entity.Name#>Service : IBaseService<<#=entity.Name#>>
+    {
+       
+    }   
+<#}#>
+	
+}

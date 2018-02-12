@@ -10,34 +10,118 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <script src="~/Content/jquery-easyui-1.5.4.1/jquery.min.js"></script>
+    <script src="~/Content/jquery-easyui-1.5.4.1/jquery.easyui.min.js"></script>
+    <script src="~/Content/jquery-easyui-1.5.4.1/locale/easyui-lang-zh_CN.js"></script>
+    <link href="~/Content/jquery-easyui-1.5.4.1/themes/gray/easyui.css" rel="stylesheet" />
+    <link href="~/Content/jquery-easyui-1.5.4.1/themes/icon.css" rel="stylesheet" />
+    
+    <script type="text/javascript">
+
+        $(function() {
+             initTable();
+        });
+
+        //初始化表格
+        function initTable() {
+            $('#tt').datagrid({
+                url: '/UserInfo/GetAllUserInfos',
+                title: '演示表格使用',
+                width: 700,
+                height: 400,
+                fitColumns: true,
+                idField: 'ID',
+                loadMsg: '正在加载用户的信息...',
+                pagination: true,
+                singleSelect: false,
+                pageSize: 10,
+                pageNumber: 1,
+                pageList: [10, 20, 30],
+                queryParams: {},
+                columns: [[
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+                    { field: 'ID', title: '主键', width: 80 },
+                    { field: 'UserName', title: '用户名', width: 120 },
+                    {
+                        field: 'SubTime', title: '提交时间', width: 80, align: 'right',
+                        formatter: function (value, row, index) {
+                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d h:m:s.S");
+                        }
+                    },
+                    {
+                        field: 'showprice', title: '商品价格', width: 80, align: 'right',
+                        styler: function (value, row, index) {
+                            if (value < 20) {
+                                return 'background-color:#ffee00;color:red;';
+                            }
+                        },
+                        formatter: function (value, row, index) {
+                            return "<a href='#' onclick='editGoodsPrice(" + row.goodsid + ");return false;'>" + value + "</a>";
+                        }
+                    }
+                ]],
+                toolbar: [{
+                    id: 'btnDownShelf',
+                    text: '上架',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        var rows = $('#goodGrid').datagrid('getSelections');
+                        if (!rows || rows.length == 0) {
+                            //alert("请选择要修改的商品！");
+                            $.messager.alert("选择商品提醒", "请选择要修改的商品!", "error");
+                            return;
+                        }
+                        $.messager.confirm("上架提醒", "您是否要真的要将此商品上架？", function (r) {
+                            if (r) {
+                                updateGoodsNewHot(rows, "onshelf");
+                            }
+                        });
+                    }
+                }],
+                onHeaderContextMenu: function (e, field) {
+
+                }
+            });
+        }
+
+        
+
+    </script>
+
 </head>
 <body>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UName)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @*页面表格数据*@
+    <div>
+        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+    </div>
+    @*<table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UName)
+                </th>
+                <th></th>
+            </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
-            </td>
-        </tr>
-    }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                        @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                        @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>*@
+
+
 </body>
 </html>
