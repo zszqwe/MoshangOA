@@ -13,28 +13,26 @@ namespace Moshang.OA.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class UserInfo
+    public partial class ActionInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserInfo()
+        public ActionInfo()
         {
             this.DelFlag = 0;
-            this.OrderInfo = new HashSet<OrderInfo>();
             this.RoleInfo = new HashSet<RoleInfo>();
             this.R_UserInfo_ActionInfo = new HashSet<R_UserInfo_ActionInfo>();
         }
     
         public int ID { get; set; }
-        public string UName { get; set; }
-        public string Pwd { get; set; }
-        public string ShowName { get; set; }
         public short DelFlag { get; set; }
         public string Remark { get; set; }
         public System.DateTime ModfiedOn { get; set; }
         public System.DateTime SubTime { get; set; }
+        public string Url { get; set; }
+        public string HttpMethd { get; set; }
+        public string ActionName { get; set; }
+        public bool IsMenu { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderInfo> OrderInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoleInfo> RoleInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

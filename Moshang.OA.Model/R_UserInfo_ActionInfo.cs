@@ -13,19 +13,14 @@ namespace Moshang.OA.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class OrderInfo
+    public partial class R_UserInfo_ActionInfo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderInfo()
-        {
-            this.DelFlag = 0;
-        }
-    
         public int ID { get; set; }
-        public string Content { get; set; }
+        public string HasPermission { get; set; }
         public int UserInfoId { get; set; }
-        public short DelFlag { get; set; }
+        public int ActionInfoId { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
+        public virtual ActionInfo ActionInfo { get; set; }
     }
 }

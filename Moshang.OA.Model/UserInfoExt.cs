@@ -13,19 +13,19 @@ namespace Moshang.OA.Model
     using System.Collections.Generic;
     
     [Serializable]
-    public partial class OrderInfo
+    public partial class UserInfoExt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderInfo()
+        public UserInfoExt()
         {
             this.DelFlag = 0;
         }
     
         public int ID { get; set; }
-        public string Content { get; set; }
-        public int UserInfoId { get; set; }
+        public string UserInfoId { get; set; }
+        public int Age { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public short DelFlag { get; set; }
-    
-        public virtual UserInfo UserInfo { get; set; }
     }
 }
