@@ -15,7 +15,8 @@
     <script src="~/Content/jquery-easyui-1.5.4.1/locale/easyui-lang-zh_CN.js"></script>
     <link href="~/Content/jquery-easyui-1.5.4.1/themes/gray/easyui.css" rel="stylesheet" />
     <link href="~/Content/jquery-easyui-1.5.4.1/themes/icon.css" rel="stylesheet" />
-    
+    <script src="~/Scripts/datapattern.js"></script>
+
     <script type="text/javascript">
 
         $(function() {
@@ -26,7 +27,7 @@
         function initTable() {
             $('#tt').datagrid({
                 url: '/UserInfo/GetAllUserInfos',
-                title: '演示表格使用',
+                title: '用户信息列表',
                 width: 700,
                 height: 400,
                 fitColumns: true,
@@ -41,30 +42,23 @@
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'ID', title: '主键', width: 80 },
-                    { field: 'UserName', title: '用户名', width: 120 },
+                    { field: 'UName', title: '用户名', width: 120 },
+                    { field: 'Pwd', title: '用户名', width: 120 },
+                    { field: 'Remark', title: '用户名', width: 120 },
                     {
                         field: 'SubTime', title: '提交时间', width: 80, align: 'right',
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d h:m:s.S");
                         }
-                    },
-                    {
-                        field: 'showprice', title: '商品价格', width: 80, align: 'right',
-                        styler: function (value, row, index) {
-                            if (value < 20) {
-                                return 'background-color:#ffee00;color:red;';
-                            }
-                        },
-                        formatter: function (value, row, index) {
-                            return "<a href='#' onclick='editGoodsPrice(" + row.goodsid + ");return false;'>" + value + "</a>";
-                        }
                     }
                 ]],
                 toolbar: [{
                     id: 'btnDownShelf',
-                    text: '上架',
+                    text: '添加用户',
                     iconCls: 'icon-add',
                     handler: function () {
+                        alert("=_=");
+                        /*
                         var rows = $('#goodGrid').datagrid('getSelections');
                         if (!rows || rows.length == 0) {
                             //alert("请选择要修改的商品！");
@@ -76,6 +70,7 @@
                                 updateGoodsNewHot(rows, "onshelf");
                             }
                         });
+                        */
                     }
                 }],
                 onHeaderContextMenu: function (e, field) {
