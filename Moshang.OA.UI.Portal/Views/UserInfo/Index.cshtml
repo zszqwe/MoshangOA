@@ -10,17 +10,22 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+
+    <link href="~/Content/TableStyle.css" rel="stylesheet" />
+
     <script src="~/Content/jquery-easyui-1.5.4.1/jquery.min.js"></script>
     <script src="~/Content/jquery-easyui-1.5.4.1/jquery.easyui.min.js"></script>
     <script src="~/Content/jquery-easyui-1.5.4.1/locale/easyui-lang-zh_CN.js"></script>
     <link href="~/Content/jquery-easyui-1.5.4.1/themes/gray/easyui.css" rel="stylesheet" />
     <link href="~/Content/jquery-easyui-1.5.4.1/themes/icon.css" rel="stylesheet" />
     <script src="~/Scripts/datapattern.js"></script>
-
+    
     <script type="text/javascript">
 
-        $(function() {
-             initTable();
+        $(function () {
+            initTable();
+
+            $("addFormDialogDiv").css("display", "none");
         });
 
         //初始化表格
@@ -41,10 +46,10 @@
                 queryParams: {},
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: '主键', width: 80 },
+                    { field: 'ID', title: '用户编号', width: 80 },
                     { field: 'UName', title: '用户名', width: 120 },
-                    { field: 'Pwd', title: '用户名', width: 120 },
-                    { field: 'Remark', title: '用户名', width: 120 },
+                    { field: 'Pwd', title: '用户密码', width: 120 },
+                    { field: 'Remark', title: '备注', width: 120 },
                     {
                         field: 'SubTime', title: '提交时间', width: 80, align: 'right',
                         formatter: function (value, row, index) {
@@ -57,20 +62,8 @@
                     text: '添加用户',
                     iconCls: 'icon-add',
                     handler: function () {
-                        alert("=_=");
-                        /*
-                        var rows = $('#goodGrid').datagrid('getSelections');
-                        if (!rows || rows.length == 0) {
-                            //alert("请选择要修改的商品！");
-                            $.messager.alert("选择商品提醒", "请选择要修改的商品!", "error");
-                            return;
-                        }
-                        $.messager.confirm("上架提醒", "您是否要真的要将此商品上架？", function (r) {
-                            if (r) {
-                                updateGoodsNewHot(rows, "onshelf");
-                            }
-                        });
-                        */
+                        //弹出 添加对话框
+                        addClickEven();
                     }
                 }],
                 onHeaderContextMenu: function (e, field) {
@@ -79,43 +72,61 @@
             });
         }
 
-        
+        //用户点击添加触发 弹出添加对话框
+        function addClickEven() {
+
+            $("#addFormDialogDiv").css("display", "block");
+            $("#addFormDialogDiv").dialog({
+                title: "添加用户",
+                modal: true,
+                width: 400,
+                height: 400,
+                collapsible: true,
+                maximizable: true,
+                resizable: true,
+                buttons: [{
+                    id: 'btnAdd',
+                    text: '确定添加',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        alert("OK =_=");
+                    }
+                }, {
+                    id: 'btnCancel',
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $("#addFormDialogDiv").dialog("close");
+                    }
+                }]
+
+            });
+        }
+
 
     </script>
 
 </head>
 <body>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    @*页面表格数据*@
+    <!--页面表格数据-->
     <div>
         <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+
+        <!--弹出添加对话框DIV 开始-->
+        <div id="addFormDialogDiv" style="display: none">
+            <table class="t1">
+                <tr><td>用户名：</td><td><input type="text" name="UName" /></td></tr>
+                <tr><td>密码：</td><td><input type="text" name="Pwd" /></td></tr>
+                <tr><td>备注：</td><td><input type="text" name="Remark" /></td></tr>
+                <tr><td>昵称：</td><td><input type="text" name="ShowName" /></td></tr>
+            </table>
+        </div>
+        <!--弹出添加对话框DIV 结束-->
+
+
     </div>
-    @*<table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UName)
-                </th>
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UName)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                        @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                        @Html.ActionLink("Delete", "Delete", new {id = item.Id})
-                    </td>
-                </tr>
-            }
-
-        </table>*@
 
 
 </body>

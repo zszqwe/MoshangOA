@@ -1485,6 +1485,7 @@
     <Content Include="Content\LigerUI\lib\ligerUI\skins\Tab\images\win\dialog-winbtns.gif" />
     <Content Include="Content\LigerUI\lib\ligerUI\skins\Tab\images\win\dialogbtn.gif" />
     <Content Include="Content\LigerUI\lib\ligerUI\skins\Tab\images\win\dialogicon.gif" />
+    <Content Include="Content\TableStyle.css" />
     <Content Include="Content\zTree_v3\api\apiCss\api.js" />
     <Content Include="Content\zTree_v3\api\apiCss\common.css" />
     <Content Include="Content\zTree_v3\api\apiCss\common_ie6.css" />

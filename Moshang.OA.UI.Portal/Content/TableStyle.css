@@ -1,0 +1,48 @@
+﻿
+.t1 {
+    table-layout: fixed;
+    empty-cells: show;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.t1 td {
+    height: 20px;
+}
+
+.t1 h1{
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.t1 .title {
+    background: #FFF;
+    border: 1px solid #9DB3C5;
+    padding: 1px;
+    width: 90%;
+    margin: 20px auto;
+}
+
+
+/*这个是借鉴一个论坛的样式*/
+table.t1 {
+    border: 1px solid #cad9ea;
+    color: #666;
+}
+
+    table.t1 th {
+        background-repeat: repeat-x;
+        height: 30px;
+    }
+
+    table.t1 td, table.t1 th {
+        border: 1px solid #cad9ea;
+        padding: 0 1em 0;
+    }
+
+    table.t1 tr.a1 {
+        background-color: #f5fafe;
+    }
+
+
