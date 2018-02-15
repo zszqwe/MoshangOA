@@ -22,28 +22,67 @@ namespace Moshang.OA.UI.Portal.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 获取用户数据
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetAllUserInfos()
         {
             //JQuery easyUI:table:{total:32,row:[{},{}]}
 
             //初始化自动发送一下两个参数
             int pageSize = int.Parse(Request["rows"] ?? "10");
-            int pageIndex = int.Parse(Request["page"] ?? "0");
+            int pageIndex = int.Parse(Request["page"] ?? "1");
             int total = 0;
 
-            short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Deleted;
+            short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
 
             //获取当前页数据
-            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total, u => u.DelFlag == delflagNormal, u => u.ID,
-                 true).Select(
-                u =>
-                new { u.ID, u.UName, u.Pwd, u.Remark, u.ShowName, u.SubTime, u.ModfiedOn });//
+            //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total, u => u.DelFlag == delflagNormal, u => u.ID, true).Select(
+            //    u =>
+            //              new
+            //              {
+            //                  id = u.id,
+            //                  u.uname,
+            //                  u.remark,
+            //                  u.showname,
+            //                  u.subtime,
+            //                  u.modfiedon,
+            //                  u.pwd
+            //              });//
 
+            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total,
+                                                                u => u.DelFlag == delflagNormal, u => u.ID, true).Select(
+                u=> new
+                {
+                    u.ID,
+                    u.UName,
+                    u.Remark,
+                    u.ShowName,
+                    u.SubTime,
+                    u.ModfiedOn,
+                    u.Pwd
+                }
+                
+                );
             //序列化实体注意导航属性依赖
             var data = new { total = total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
+
+        public ActionResult Add(UserInfo userinfo)
+        {
+            userinfo.ModfiedOn = DateTime.Now;
+            userinfo.SubTime = DateTime.Now;
+            userinfo.DelFlag = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
+
+            UserInfoService.Add(userinfo);
+
+            return Content("OK");
+        }
+
+
 
         #region Create
         public ActionResult Create()
@@ -61,5 +100,8 @@ namespace Moshang.OA.UI.Portal.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
+
+
     }
 }
