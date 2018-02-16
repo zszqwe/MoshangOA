@@ -13,20 +13,9 @@ namespace Moshang.OA.BLL
 {
     public class UserInfoService:BaseService<UserInfo>,IUserInfoService
     {
-        //IUserInfoDal userInfoDal = new UserInfoDal();
-        //IUserInfoDal userInfoDal = StaticDalFactory.GetUserInfoDal();
-        //DbSession dbSession = new DbSession();
-        //public UserInfo Add(UserInfo userInfo)
-        //{
-        //    // return userInfoDal.Add(userInfo);
-        //    dbSession.UserInfoDal.Add(userInfo);
-        //    //if (dbSession.SaveChenges() > 0)
-        //    //{
-        //    //    //单元工作模式UnitWork
-        //    //}
 
-        //    dbSession.SaveChenges();
-        //}
+        
+
 
         public override void SetCurrentDal()
         {

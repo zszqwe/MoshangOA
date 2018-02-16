@@ -38,19 +38,6 @@ namespace Moshang.OA.UI.Portal.Controllers
             short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
 
             //获取当前页数据
-            //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total, u => u.DelFlag == delflagNormal, u => u.ID, true).Select(
-            //    u =>
-            //              new
-            //              {
-            //                  id = u.id,
-            //                  u.uname,
-            //                  u.remark,
-            //                  u.showname,
-            //                  u.subtime,
-            //                  u.modfiedon,
-            //                  u.pwd
-            //              });//
-
             var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total,
                                                                 u => u.DelFlag == delflagNormal, u => u.ID, true).Select(
                 u=> new
@@ -71,6 +58,7 @@ namespace Moshang.OA.UI.Portal.Controllers
 
         }
 
+        //添加
         public ActionResult Add(UserInfo userinfo)
         {
             userinfo.ModfiedOn = DateTime.Now;
@@ -82,9 +70,27 @@ namespace Moshang.OA.UI.Portal.Controllers
             return Content("OK");
         }
 
+        //删除
+        public ActionResult Delete(string ids)
+        { 
+            //判断是否为空
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("请选中要删除的数据！");
+            }
+            string[] strids = ids.Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strids)
+            {
+                idList.Add(int .Parse(strId));
+            }
+            UserInfoService.DeleteList(idList);
+
+            return Content("OK");
+        }
 
 
-        #region Create
+       #region Create
         public ActionResult Create()
         {
             return View();

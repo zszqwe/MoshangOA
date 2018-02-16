@@ -87,6 +87,14 @@ namespace Moshang.OA.EFDAL
             return true;
         }
 
+        public bool Delete(int id)
+        {
+            var entity = Db.Set<T>().Find(id);
+            Db.Set<T>().Remove(entity);
+
+
+            return true;
+        }
 
         #endregion
     }

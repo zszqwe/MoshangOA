@@ -18,10 +18,12 @@ namespace Moshang.OA.IDAL
             Expression<Func<T, S>> orderByLambda, bool isAsc);
 
         T Add(T entity);
-
+        
         bool Update(T entity);
         
         bool Delete(T entity);
+
+        bool Delete(int id);
 
     }
 }
