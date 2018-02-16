@@ -23,5 +23,7 @@ namespace Moshang.OA.IBLL
         bool Delete(int id);
 
         int DeleteList(List<int> ids);
+
+        int DeleteListByLogical(List<int> ids);
     }
 }

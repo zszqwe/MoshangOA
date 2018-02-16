@@ -65,11 +65,11 @@ namespace Moshang.OA.BLL
             return DbSession.SaveChanges() > 0;
         }
 
-        //
+        //批量逻辑删除
         public int DeleteListByLogical(List<int> ids)
         {
-            //CurrentDal.GetEntities()
-            return 0;
+            CurrentDal.DeleteListByLogical(ids);
+            return DbSession.SaveChanges();
         }
 
         //批量真实删除

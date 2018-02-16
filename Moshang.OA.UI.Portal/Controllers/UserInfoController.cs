@@ -40,7 +40,7 @@ namespace Moshang.OA.UI.Portal.Controllers
             //获取当前页数据
             var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total,
                                                                 u => u.DelFlag == delflagNormal, u => u.ID, true).Select(
-                u=> new
+                u => new
                 {
                     u.ID,
                     u.UName,
@@ -50,7 +50,7 @@ namespace Moshang.OA.UI.Portal.Controllers
                     u.ModfiedOn,
                     u.Pwd
                 }
-                
+
                 );
             //序列化实体注意导航属性依赖
             var data = new { total = total, rows = pageData.ToList() };
@@ -70,9 +70,22 @@ namespace Moshang.OA.UI.Portal.Controllers
             return Content("OK");
         }
 
+        //修改
+        public ActionResult Edit(int id)
+        {
+            ViewData.Model = UserInfoService.GetEntities(u=> u.ID==id).FirstOrDefault();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(UserInfo userInfo)
+        {
+            UserInfoService.Update(userInfo);
+            return Content("OK");
+        }
         //删除
         public ActionResult Delete(string ids)
-        { 
+        {
             //判断是否为空
             if (string.IsNullOrEmpty(ids))
             {
@@ -82,15 +95,16 @@ namespace Moshang.OA.UI.Portal.Controllers
             List<int> idList = new List<int>();
             foreach (var strId in strids)
             {
-                idList.Add(int .Parse(strId));
+                idList.Add(int.Parse(strId));
             }
-            UserInfoService.DeleteList(idList);
+            UserInfoService.DeleteListByLogical(idList);
 
             return Content("OK");
         }
 
 
-       #region Create
+
+        #region Create
         public ActionResult Create()
         {
             return View();

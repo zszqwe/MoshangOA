@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -25,5 +26,6 @@ namespace Moshang.OA.IDAL
 
         bool Delete(int id);
 
+        int DeleteListByLogical(List<int> ids);
     }
 }

@@ -30,6 +30,7 @@
             initTable();
 
             $("addFormDialogDiv").css("display", "none");
+            $("editFormDialogDiv").css("display", "none");
         });
 
         //初始化表格
@@ -76,12 +77,21 @@
                         //弹出 删除对话框
                         deleteEvent();
                     }
+                }, {
+                    id: 'btnEdit',
+                    text: '修改用户',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        //弹出 修改对话框
+                        EditEvent();
+                    }
                 }],
                 onHeaderContextMenu: function (e, field) {
 
                 }
             });
         }
+
 
         //用户点击添加触发 弹出添加对话框
         function addClickEvent() {
@@ -112,39 +122,6 @@
             });
         }
 
-        //用户点击删除触发 弹出删除对话框
-        function deleteEvent(id) {
-            var selectedRows = $('#tt').datagrid("getSelections");
-            
-            //如果未选中数据 提示
-            if (selectedRows.length <= 0) {
-                $.messager.alert("错误提示", "请选择要删除的数据 =_=","error");   
-                return;
-            }
-
-            var ids="";
-            //循环获取选中数据删除、
-            for (var key in selectedRows) {
-                ids += selectedRows[key].ID + ",";
-            }
-            //获取准备删除的ID
-            ids = ids.substr(0, ids.length - 1);
-            $.post("/UserInfo/Delete",
-                { ids: ids },
-                function (data) {
-                    if (data == "OK") {
-                        initTable();
-                    } else {
-                        $.messager.alert("提醒消息", "删除失败=_=", "error");
-                    }
-                    
-                        
-
-                });
-
-
-        }   
-
         //表单提交至后台
         function subAddForm() {
             $("#addFormDialogDiv form").submit();
@@ -161,6 +138,92 @@
             }
         }
 
+        //用户点击修改触发 弹出修改对话框
+        function EditEvent(id) {
+
+            var selectedRows = $('#tt').datagrid("getSelections");
+
+            //如果未选中数据 提示
+            if (selectedRows.length != 1) {
+                $.messager.alert("错误提示", "请选择要一行修改的数据 =_=", "error");
+                return;
+            }
+
+            //弹出修改对话框之前为Iframe src属性赋值
+            $("#editFrame").attr("src", "/UserInfo/Edit/" + selectedRows[0].ID);
+
+
+
+            $("#editFormDialogDiv").css("display", "block");
+            $("#editFormDialogDiv").dialog({
+                title: "修改用户",
+                modal: true,
+                width: 400,
+                height: 400,
+                collapsible: true,
+                maximizable: true,
+                resizable: true,
+                buttons: [{
+                    id: 'btnAdd',
+                    text: '确定修改',
+                    iconCls: 'icon-ok',
+                    handler: function() {
+                        $("#editFrame")[0].contentWindow. submitForm();
+                    }
+                }, {
+                    id: 'btnCancel',
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $("#editFormDialogDiv").dialog("close");
+                    }
+                }]
+
+            });
+        }
+
+        //修改成功后子容器调用
+        function afterEditSuccess() {
+            $("#editFormDialogDiv").dialog("close");
+            initTable();
+        }
+
+        //用户点击删除触发 弹出删除对话框
+        function deleteEvent(id) {
+            var selectedRows = $('#tt').datagrid("getSelections");
+
+            //如果未选中数据 提示
+            if (selectedRows.length <= 0) {
+                $.messager.alert("错误提示", "请选择要删除的数据 =_=", "error");
+                return;
+            }
+
+            var ids = "";
+            //循环获取选中数据删除、
+            for (var key in selectedRows) {
+                ids += selectedRows[key].ID + ",";
+            }
+            //获取准备删除的ID
+            ids = ids.substr(0, ids.length - 1);
+            $.post("/UserInfo/Delete",
+                { ids: ids },
+                function (data) {
+                    if (data == "OK") {
+                        initTable();
+                    } else {
+                        $.messager.alert("提醒消息", "删除失败=_=", "error");
+                    }
+
+
+
+                });
+
+
+        }
+
+
+
+
     </script>
 
 </head>
@@ -172,18 +235,33 @@
 
         <!--弹出添加对话框DIV 开始-->
         <div id="addFormDialogDiv" style="display: none">
-            @using (Ajax.BeginForm("Add","UserInfo",new AjaxOptions() {OnSuccess = "afterAdd"}))
+            @using (Ajax.BeginForm("Add", "UserInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
             {
                 <table class="t1">
-                    
-                    <tr><td>用户名：</td><td><input type="text" name="UName"/></td></tr>
-                    <tr><td>密码：</td><td><input type="text" name="Pwd"/></td></tr>
-                    <tr><td>备注：</td><td><input type="text" name="Remark"/></td></tr>
-                    <tr><td>昵称：</td><td><input type="text" name="ShowName"/></td></tr>
+
+                    <tr><td>用户名：</td><td><input type="text" name="UName" /></td></tr>
+                    <tr><td>密码：</td><td><input type="text" name="Pwd" /></td></tr>
+                    <tr><td>备注：</td><td><input type="text" name="Remark" /></td></tr>
+                    <tr><td>昵称：</td><td><input type="text" name="ShowName" /></td></tr>
                 </table>
             }
         </div>
         <!--弹出添加对话框DIV 结束-->
+        <!--弹出修改对话框DIV 开始-->
+        <div id="editFormDialogDiv" style="display: none">
+            <iframe id="editFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no">
+
+                <table class="t1">
+
+                    <tr><td>用户名：</td><td><input type="text" name="UName" /></td></tr>
+                    <tr><td>密码：</td><td><input type="text" name="Pwd" /></td></tr>
+                    <tr><td>备注：</td><td><input type="text" name="Remark" /></td></tr>
+                    <tr><td>昵称：</td><td><input type="text" name="ShowName" /></td></tr>
+                </table>
+
+            </iframe>
+        </div>
+        <!--弹出修改对话框DIV 结束-->
 
 
     </div>
