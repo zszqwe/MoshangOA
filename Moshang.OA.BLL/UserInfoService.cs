@@ -12,17 +12,9 @@ using Moshang.OA.Model.Param;
 
 namespace Moshang.OA.BLL
 {
-    public class UserInfoService:BaseService<UserInfo>,IUserInfoService
+    public partial class UserInfoService:BaseService<UserInfo>,IUserInfoService
     {
-
-
-
-
-        public override void SetCurrentDal()
-        {
-            CurrentDal = DbSession.UserInfoDal;
-        }
-
+        
         public IQueryable<UserInfo> LoagPageData(Model.Param.UserQueryParam userQueryParam)
         {
             short normalFlag = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
@@ -48,6 +40,20 @@ namespace Moshang.OA.BLL
                 .Take(userQueryParam.PageSize).AsQueryable();
 
 
+        }
+
+        public bool SetRole(int userId, List<int> roleIds)
+        {
+            var user = DbSession.UserInfoDal.GetEntities(u => u.ID == userId).FirstOrDefault();
+            user.RoleInfo.Clear();
+
+            var allRoles = DbSession.RoleInfoDal.GetEntities(r => roleIds.Contains(r.ID));
+            foreach (var roleInfo in allRoles)
+            {
+                user.RoleInfo.Add(roleInfo);
+            }
+            DbSession.SaveChanges();
+            return true;
         }
     }
     

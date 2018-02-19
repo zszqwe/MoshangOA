@@ -32,6 +32,8 @@ namespace Moshang.OA.Model
         public string HttpMethd { get; set; }
         public string ActionName { get; set; }
         public bool IsMenu { get; set; }
+        public string MenuIcon { get; set; }
+        public int Sort { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoleInfo> RoleInfo { get; set; }

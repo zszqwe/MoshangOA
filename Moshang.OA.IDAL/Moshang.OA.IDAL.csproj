@@ -51,6 +51,11 @@
   <ItemGroup>
     <Compile Include="IBaseDal.cs" />
     <Compile Include="IDbSession.cs" />
+    <Compile Include="IDbSession1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDbSession.tt</DependentUpon>
+    </Compile>
     <Compile Include="IOrderInfoDal.cs" />
     <Compile Include="IDals.cs">
       <AutoGen>True</AutoGen>
@@ -74,6 +79,10 @@
     <Content Include="IDals.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IDals.cs</LastGenOutput>
+    </Content>
+    <Content Include="IDbSession.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDbSession1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

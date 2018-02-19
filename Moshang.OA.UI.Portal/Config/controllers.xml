@@ -3,6 +3,7 @@
   
   <object type="Moshang.OA.UI.Portal.Controllers.UserInfoController, Moshang.OA.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
+    
   </object>
 
   <object type="Moshang.OA.UI.Portal.Controllers.OrderInfoController, Moshang.OA.UI.Portal" singleton="false" >
@@ -12,4 +13,13 @@
   <object type="Moshang.OA.UI.Portal.Controllers.UserLoginController, Moshang.OA.UI.Portal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" />
   </object>
+
+
+  <object type="Moshang.OA.UI.Portal.Controllers.ActionInfoController, Moshang.OA.UI.Portal" singleton="false" >
+    <property name="ActionInfoService" ref="ActionInfoService" />
+
+  </object>
+
+
+  
 </objects>

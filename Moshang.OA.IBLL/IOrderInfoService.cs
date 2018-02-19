@@ -2,7 +2,7 @@
 
 namespace Moshang.OA.IBLL
 {
-    public interface IOrderInfoService:IBaseService<OrderInfo>
+    public partial interface IOrderInfoService:IBaseService<OrderInfo>
     {
         
     }

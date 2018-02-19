@@ -10,7 +10,7 @@ using Moshang.OA.Model;
 
 namespace Moshang.OA.EFDAL
 {
-    public class OrderInfoDal : BaseDal<OrderInfo>, IOrderInfoDal
+    public partial class OrderInfoDal : BaseDal<OrderInfo>, IOrderInfoDal
     {
     }
 }

@@ -6,4 +6,6 @@
   <object name="OrderInfoService" type="Moshang.OA.BLL.OrderInfoService, Moshang.OA.BLL" singleton="false" >
   </object>
 
+  <object name="ActionInfoService" type="Moshang.OA.BLL.ActionInfoService, Moshang.OA.BLL" singleton="false" >
+  </object>
 </objects>

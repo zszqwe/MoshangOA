@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/12/2018 17:54:44
+-- Date Created: 02/19/2018 21:47:26
 -- Generated from EDMX file: D:\Users\Administrator\Documents\Visual Studio 2015\Projects\Moshang.OA\Moshang.OA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -20,6 +20,24 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserInfoOrderInfo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[OrderInfo] DROP CONSTRAINT [FK_UserInfoOrderInfo];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoRoleInfo_UserInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoRoleInfo] DROP CONSTRAINT [FK_UserInfoRoleInfo_UserInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoRoleInfo_RoleInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserInfoRoleInfo] DROP CONSTRAINT [FK_UserInfoRoleInfo_RoleInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionInfoRoleInfo_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionInfoRoleInfo] DROP CONSTRAINT [FK_ActionInfoRoleInfo_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionInfoRoleInfo_RoleInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionInfoRoleInfo] DROP CONSTRAINT [FK_ActionInfoRoleInfo_RoleInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserInfoR_UserInfo_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_UserInfo_ActionInfo] DROP CONSTRAINT [FK_UserInfoR_UserInfo_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionInfoR_UserInfo_ActionInfo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[R_UserInfo_ActionInfo] DROP CONSTRAINT [FK_ActionInfoR_UserInfo_ActionInfo];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -30,6 +48,24 @@ IF OBJECT_ID(N'[dbo].[UserInfo]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[OrderInfo]', 'U') IS NOT NULL
     DROP TABLE [dbo].[OrderInfo];
+GO
+IF OBJECT_ID(N'[dbo].[RoleInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RoleInfo];
+GO
+IF OBJECT_ID(N'[dbo].[ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[R_UserInfo_ActionInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[R_UserInfo_ActionInfo];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfoExt]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfoExt];
+GO
+IF OBJECT_ID(N'[dbo].[UserInfoRoleInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserInfoRoleInfo];
+GO
+IF OBJECT_ID(N'[dbo].[ActionInfoRoleInfo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionInfoRoleInfo];
 GO
 
 -- --------------------------------------------------
@@ -79,7 +115,9 @@ CREATE TABLE [dbo].[ActionInfo] (
     [Url] nvarchar(512)  NOT NULL,
     [HttpMethd] nvarchar(32)  NOT NULL,
     [ActionName] nvarchar(32)  NOT NULL,
-    [IsMenu] bit  NOT NULL
+    [IsMenu] bit  NOT NULL,
+    [MenuIcon] nvarchar(512)  NOT NULL,
+    [Sort] int  NOT NULL
 );
 GO
 

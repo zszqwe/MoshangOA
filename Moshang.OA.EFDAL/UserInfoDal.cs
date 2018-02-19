@@ -10,7 +10,7 @@ using Moshang.OA.IDAL;
 
 namespace Moshang.OA.EFDAL
 {
-    public class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
+    public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
     {
         //crud
         public string Name { get; set; }

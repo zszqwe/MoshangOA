@@ -10,7 +10,7 @@ using Moshang.OA.Model;
 
 namespace Moshang.OA.BLL
 {
-    public class OrderInfoService:BaseService<OrderInfo>, IOrderInfoService
+    public partial class OrderInfoService:BaseService<OrderInfo>, IOrderInfoService
     {
         //IOrderInfoDal orderInfoDal = StaticDalFactory.GetOrderInfoDal();
 
@@ -18,9 +18,5 @@ namespace Moshang.OA.BLL
         //{
         //    return orderInfoDal.Add(orderInfo);
         //}
-        public override void SetCurrentDal()
-        {
-            CurrentDal = DbSession.OrderInfoDal;
-        }
     }
 }

@@ -7,8 +7,9 @@ using Moshang.OA.Model;
 
 namespace Moshang.OA.IBLL
 {
-    public interface IUserInfoService:IBaseService<UserInfo>
+    public partial interface IUserInfoService:IBaseService<UserInfo>
     {
         IQueryable<UserInfo> LoagPageData(Model.Param.UserQueryParam userQueryParam);
+        bool SetRole(int userId, List<int> roleIds);
     }
 }

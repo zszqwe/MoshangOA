@@ -97,7 +97,7 @@ namespace Moshang.OA.UI.Portal.Controllers
         public ActionResult Edit(UserInfo userInfo)
         {
             UserInfoService.Update(userInfo);
-            return Content("OK");
+            return Content("ok");
         }
         //删除
         public ActionResult Delete(string ids)
