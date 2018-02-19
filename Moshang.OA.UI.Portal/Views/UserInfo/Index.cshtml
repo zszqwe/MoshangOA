@@ -29,25 +29,12 @@
         $(function () {
             initTable();
 
-            $("addFormDialogDiv").css("display", "none");
-            $("editFormDialogDiv").css("display", "none");
-
-            bindSearchBtnClick();//btnSearch
+            $("#addFormDialogDiv").css("display", "none");
+            $("#editFormDialogDiv").css("display", "none");
+            $("#ssttDiv").css("display", "none");
 
         });
 
-        //绑定搜索查询事件
-        function bindSearchBtnClick() {
-            $("#btnSearch").click(function () {
-                var data = {
-                    //表格加载时，传输额外数据
-                    schName: $("#txtSchName").val(),
-                    schRemark: $("#txtSchReamrk").val()
-                };
-
-                initTable(data);
-            });
-        }
 
         //初始化表格
         function initTable(queryParam) {
@@ -120,7 +107,12 @@
                         EditEvent(selectedRows[0].ID);
                     }
                 }, {
-
+                    id: 'btnsearch',
+                    text: '搜索用户',
+                    iconCls: 'icon-search',
+                    handler: function () {
+                        searchEvent();
+                    }
                 }
                 ],
                 onHeaderContextMenu: function (e, field) {
@@ -145,9 +137,43 @@
                 }
 
             });
+
         }
 
-       
+        //用户点击搜索触发 弹出搜索对黄框
+        function searchEvent() {
+            $("#ssttDiv").css("display", "block");
+            $('#ssttDiv').dialog({
+                title: "多条件搜索",
+                modal: true,
+                width: 400,
+                height: 400,
+                collapsible: true,
+                maximizable: true,
+                resizable: true,
+                buttons: [{
+                    text: '搜索',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        var data = {
+                            //表格加载时，传输额外数据
+                            schName: $("#txtSchName").val(),
+                            schRemark: $("#txtSchReamrk").val()
+                        };
+                        $("#ssttDiv").dialog("close");
+                        initTable(data);
+                    }
+                }, {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $("#ssttDiv").dialog("close");
+                    }
+                }]
+
+
+            });
+        }
 
         //用户点击添加触发 弹出添加对话框
         function addClickEvent() {
@@ -253,19 +279,22 @@
                 ids += selectedRows[key].ID + ",";
             }
             //获取准备删除的ID
-            ids = ids.substr(0, ids.length - 1);
-            $.post("/UserInfo/Delete",
-                { ids: ids },
-                function (data) {
-                    if (data == "OK") {
-                        initTable();
-                    } else {
-                        $.messager.alert("提醒消息", "删除失败=_=", "error");
-                    }
+            $.messager.confirm('提示', '确认删除?', function (r) {
+                if (r) {
+                    ids = ids.substr(0, ids.length - 1);
+                    $.post("/UserInfo/Delete",
+                        { ids: ids },
+                        function (data) {
+                            if (data == "OK") {
+                                initTable();
+                            } else {
+                                $.messager.alert("提醒消息", "删除失败=_=", "error");
+                            }
+                        });
+                }
+            });
 
 
-
-                });
 
 
         }
@@ -276,18 +305,28 @@
 
 </head>
 <body>
-    <!--用户多条件查询 开始-->
-    <div>
-        用户名：<input type="text" id="txtSchName" name="txtSchName" />
-        备注：<input type="text" id="txtSchReamrk" name="txtSchReamrk" /><input type="button" id="btnSearch" value="过滤搜索" />
 
-    </div>
-    <!--用户多条件查询 结束-->
     <!--页面表格数据 开始-->
     <div>
 
-        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+        <table id="tt" style="width: 700px;" title="" iconcls="icon-edit"></table>
+        <!--用户多条件查询 开始-->
+        <div id="ssttDiv" style="display: none">
+          
 
+            <table class="t1">
+
+                <tr><td>用户名搜索：</td><td><input type="text" id="txtSchName" name="txtSchName" /></td></tr>
+
+                <tr><td>备注搜索：</td><td><input type="text" id="txtSchReamrk" name="txtSchReamrk" /></td></tr>
+
+            </table>
+
+            @*<input type="button" id="btnSearch" value="过滤搜索"/>*@
+
+            @*</iframe>*@
+        </div>
+        <!--用户多条件查询 结束-->
         <!--弹出添加对话框DIV 开始-->
         <div id="addFormDialogDiv" style="display: none">
             @using (Ajax.BeginForm("Add", "UserInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
