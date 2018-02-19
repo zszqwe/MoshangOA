@@ -9,6 +9,6 @@ namespace Moshang.OA.IBLL
 {
     public interface IUserInfoService:IBaseService<UserInfo>
     {
-        
+        IQueryable<UserInfo> LoagPageData(Model.Param.UserQueryParam userQueryParam);
     }
 }

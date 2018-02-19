@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Moshang.OA.BLL;
 using Moshang.OA.IBLL;
 using Moshang.OA.Model;
+using Moshang.OA.Model.Param;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
@@ -35,25 +36,40 @@ namespace Moshang.OA.UI.Portal.Controllers
             int pageIndex = int.Parse(Request["page"] ?? "1");
             int total = 0;
 
-            short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
+            //数据过滤
+            string schName = Request["schName"];
+            string schRemark = Request["schRemark"];
+
+            //short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
 
             //获取当前页数据
-            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total,
-                                                                u => u.DelFlag == delflagNormal, u => u.ID, true).Select(
+
+            var queryParam = new UserQueryParam()
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                Total = 0,
+                SchName = schName,
+                SchRemark = schRemark
+            };
+
+            var pageData = UserInfoService.LoagPageData(queryParam);
+
+            var temp = pageData.Select(
                 u => new
                 {
-                    u.ID,
+                    ID = u.ID,
                     u.UName,
                     u.Remark,
                     u.ShowName,
                     u.SubTime,
                     u.ModfiedOn,
                     u.Pwd
-                }
-
-                );
+                });
+            
+           
             //序列化实体注意导航属性依赖
-            var data = new { total = total, rows = pageData.ToList() };
+            var data = new { total = queryParam.Total, rows = temp.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
 
         }
@@ -73,7 +89,7 @@ namespace Moshang.OA.UI.Portal.Controllers
         //修改
         public ActionResult Edit(int id)
         {
-            ViewData.Model = UserInfoService.GetEntities(u=> u.ID==id).FirstOrDefault();
+            ViewData.Model = UserInfoService.GetEntities(u => u.ID == id).FirstOrDefault();
             return View();
         }
 

@@ -31,10 +31,26 @@
 
             $("addFormDialogDiv").css("display", "none");
             $("editFormDialogDiv").css("display", "none");
+
+            bindSearchBtnClick();//btnSearch
+
         });
 
+        //绑定搜索查询事件
+        function bindSearchBtnClick() {
+            $("#btnSearch").click(function () {
+                var data = {
+                    //表格加载时，传输额外数据
+                    schName: $("#txtSchName").val(),
+                    schRemark: $("#txtSchReamrk").val()
+                };
+
+                initTable(data);
+            });
+        }
+
         //初始化表格
-        function initTable() {
+        function initTable(queryParam) {
             $('#tt').datagrid({
                 url: '/UserInfo/GetAllUserInfos',
                 title: '用户信息列表',
@@ -48,16 +64,26 @@
                 pageSize: 10,
                 pageNumber: 1,
                 pageList: [10, 20, 30],
+                queryParams: queryParam,
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: '用户编号', width: 80 },
+                    { field: 'ID', title: '用户编号', width: 50 },
                     { field: 'UName', title: '用户名', width: 120 },
                     { field: 'Pwd', title: '用户密码', width: 120 },
                     { field: 'Remark', title: '备注', width: 120 },
                     {
-                        field: 'SubTime', title: '提交时间', width: 80, align: 'right',
+                        field: 'SubTime', title: '提交时间', width: 130,
                         formatter: function (value, row, index) {
                             return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d h:m:s.S");
+                        }
+                    },
+                    {
+                        field: 'ModfiedOn', title: '操作', width: 100,
+                        formatter: function (value, row, index) {
+                            var str = "";
+                            str += "<a href='#' class='editLink' uid='" + row.ID + "'>修改</a> &nbsp;&nbsp;";
+                            str += "<a href='#' class='deleteLink' uid='" + row.ID + "'>删除</a>";
+                            return str;
                         }
                     }
                 ]],
@@ -83,15 +109,45 @@
                     iconCls: 'icon-edit',
                     handler: function () {
                         //弹出 修改对话框
-                        EditEvent();
+                        var selectedRows = $('#tt').datagrid("getSelections");
+
+                        //如果未选中数据 提示
+                        if (selectedRows.length != 1) {
+                            $.messager.alert("错误提示", "请选择要一行修改的数据 =_=", "error");
+                            return;
+                        }
+
+                        EditEvent(selectedRows[0].ID);
                     }
-                }],
-                onHeaderContextMenu: function (e, field) {
+                }, {
 
                 }
+                ],
+                onHeaderContextMenu: function (e, field) {
+
+                },
+                onLoadSuccess: function () {
+                    //加载完成绑定操作事件
+                    //修改
+                    $(".editLink").click(function () {
+
+                        EditEvent($(this).attr("uid"));
+
+                        return false;
+                    });
+                    //删除
+                    $(".deleteLink").click(function () {
+
+                        deleteEvent($(this).attr("uid"));
+
+                        return false;
+                    });
+                }
+
             });
         }
 
+       
 
         //用户点击添加触发 弹出添加对话框
         function addClickEvent() {
@@ -141,16 +197,9 @@
         //用户点击修改触发 弹出修改对话框
         function EditEvent(id) {
 
-            var selectedRows = $('#tt').datagrid("getSelections");
-
-            //如果未选中数据 提示
-            if (selectedRows.length != 1) {
-                $.messager.alert("错误提示", "请选择要一行修改的数据 =_=", "error");
-                return;
-            }
 
             //弹出修改对话框之前为Iframe src属性赋值
-            $("#editFrame").attr("src", "/UserInfo/Edit/" + selectedRows[0].ID);
+            $("#editFrame").attr("src", "/UserInfo/Edit/" + id);
 
 
 
@@ -167,8 +216,8 @@
                     id: 'btnAdd',
                     text: '确定修改',
                     iconCls: 'icon-ok',
-                    handler: function() {
-                        $("#editFrame")[0].contentWindow. submitForm();
+                    handler: function () {
+                        $("#editFrame")[0].contentWindow.submitForm();
                     }
                 }, {
                     id: 'btnCancel',
@@ -223,14 +272,20 @@
 
 
 
-
     </script>
 
 </head>
 <body>
-
-    <!--页面表格数据-->
+    <!--用户多条件查询 开始-->
     <div>
+        用户名：<input type="text" id="txtSchName" name="txtSchName" />
+        备注：<input type="text" id="txtSchReamrk" name="txtSchReamrk" /><input type="button" id="btnSearch" value="过滤搜索" />
+
+    </div>
+    <!--用户多条件查询 结束-->
+    <!--页面表格数据 开始-->
+    <div>
+
         <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
 
         <!--弹出添加对话框DIV 开始-->
@@ -265,7 +320,7 @@
 
 
     </div>
-
+    <!--页面表格数据 结束-->
 
 
 </body>
