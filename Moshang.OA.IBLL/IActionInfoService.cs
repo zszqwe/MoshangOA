@@ -8,6 +8,8 @@ namespace Moshang.OA.IBLL
 {
     public partial interface IActionInfoService : IBaseService<ActionInfo>
     {
+        IQueryable<ActionInfo> LoagPageData(Model.Param.ActionQueryParam actionQueryParam);
+
         bool SetRole(int userId, List<int> roleIds);
     }
 }

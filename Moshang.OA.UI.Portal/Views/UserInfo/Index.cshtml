@@ -54,8 +54,8 @@
                 queryParams: queryParam,
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: '用户编号', width: 50 },
-                    { field: 'UName', title: '用户名', width: 120 },
+                    { field: 'ID', title: '用户编号', width: 70 },
+                    { field: 'UName', title: '用户名', width: 100 },
                     { field: 'Pwd', title: '用户密码', width: 120 },
                     { field: 'Remark', title: '备注', width: 120 },
                     {
@@ -164,10 +164,15 @@
                         initTable(data);
                     }
                 }, {
-                    text: '关闭',
+                    text: '清空关闭',
                     iconCls: 'icon-cancel',
                     handler: function () {
+                        $("#txtSchName").val("");
+                        $("#txtSchReamrk").val("");
+                        var data = {
+                        };
                         $("#ssttDiv").dialog("close");
+                        initTable(data);
                     }
                 }]
 

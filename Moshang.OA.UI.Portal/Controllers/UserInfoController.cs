@@ -83,7 +83,7 @@ namespace Moshang.OA.UI.Portal.Controllers
 
             UserInfoService.Add(userinfo);
 
-            return Content("OK");
+            return Content("ok");
         }
 
         //修改
@@ -115,7 +115,7 @@ namespace Moshang.OA.UI.Portal.Controllers
             }
             UserInfoService.DeleteListByLogical(idList);
 
-            return Content("OK");
+            return Content("ok");
         }
 
 
