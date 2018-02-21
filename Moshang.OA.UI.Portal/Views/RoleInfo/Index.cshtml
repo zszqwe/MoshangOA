@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Moshang.OA.Model.UserInfo>
-
+﻿
 @{
     Layout = null;
 }
+
 
 <!DOCTYPE html>
 
@@ -22,7 +22,7 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
     <script src="~/Scripts/datapattern.js"></script>
-
+    <script src="~/Scripts/MyAjaxForm.js"></script>
     <script type="text/javascript">
 
         //页面初始化
@@ -30,18 +30,24 @@
             initTable();
             displayelement();
 
+            //绑定是否菜单按钮
+            bindCkbIsmenuClick();
+            //绑定图片上传按钮
+            bindUploadBtnClick();
+
         });
+
 
         //初始化表格
         function initTable(queryParam) {
             $('#tt').datagrid({
-                url: '/UserInfo/GetAllUserInfos',
-                title: '用户信息列表',
+                url: '/RoleInfo/GetAllRoleInfos',
+                title: '角色信息列表',
                 width: 700,
                 height: 400,
                 fitColumns: true,
                 idField: 'ID',
-                loadMsg: '正在加载用户的信息...',
+                loadMsg: '正在加载角色的信息...',
                 pagination: true,
                 singleSelect: false,
                 pageSize: 10,
@@ -50,9 +56,8 @@
                 queryParams: queryParam,
                 columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-                    { field: 'ID', title: '用户编号', width: 70 },
-                    { field: 'UName', title: '用户名', width: 100 },
-                    { field: 'Pwd', title: '用户密码', width: 120 },
+                    { field: 'ID', title: '编号', width: 80 },
+                    { field: 'RoleName', title: '角色名', width: 120 },
                     { field: 'Remark', title: '备注', width: 120 },
                     {
                         field: 'SubTime', title: '提交时间', width: 130,
@@ -92,7 +97,15 @@
                     iconCls: 'icon-edit',
                     handler: function () {
                         //弹出 修改对话框
-                        EditEvent();
+                        var selectedRows = $('#tt').datagrid("getSelections");
+
+                        //如果未选中数据 提示
+                        if (selectedRows.length != 1) {
+                            $.messager.alert("错误提示", "请选择要一行修改的数据 =_=", "error");
+                            return;
+                        }
+
+                        EditEvent(selectedRows[0].ID);
                     }
                 }, {
                     id: 'btnsearch',
@@ -100,14 +113,6 @@
                     iconCls: 'icon-search',
                     handler: function () {
                         searchEvent();
-                    }
-                }, {
-                    id: 'btnSetRole',
-                    text: '设置角色',
-                    iconCls: 'icon-redo',
-                    handler: function () {
-                        //弹出 设置角色对话框
-                        setRole();
                     }
                 }
                 ],
@@ -136,8 +141,7 @@
 
         }
 
-
-        //用户点击搜索触发 弹出搜索对黄框
+        //角色点击搜索触发 弹出搜索对黄框
         function searchEvent() {
             $("#ssttDiv").css("display", "block");
             $('#ssttDiv').dialog({
@@ -177,12 +181,12 @@
             });
         }
 
-        //用户点击添加触发 弹出添加对话框
+        //角色点击添加触发 弹出添加对话框
         function addClickEvent() {
 
             $("#addFormDialogDiv").css("display", "block");
             $("#addFormDialogDiv").dialog({
-                title: "添加用户",
+                title: "添加角色",
                 modal: true,
                 width: 400,
                 height: 400,
@@ -206,11 +210,7 @@
             });
         }
 
-        //表单提交至后台
-        function subAddForm() {
-            $("#addFormDialogDiv form").submit();
-        }
-
+       
         //添加成功以后
         function afterAdd(data) {
             if (data == "ok") {
@@ -222,42 +222,41 @@
             }
         }
 
-        //用户点击修改触发 弹出修改对话框
-        function EditEvent() {
-            var selectedRows = $('#tt').datagrid("getSelections");
-            //如果未选中数据 提示
-            if (selectedRows.length != 1) {
-                $.messager.alert("错误提示", "请选择要一行修改的数据 =_=", "error");
-            } else {
-                //弹出修改对话框之前为Iframe src属性赋值
-                $("#editFrame").attr("src", "/UserInfo/Edit/" + selectedRows[0].ID);
+        //点击修改触发 弹出修改对话框
+        function EditEvent(id) {
 
-                $("#editFormDialogDiv").css("display", "block");
-                $("#editFormDialogDiv").dialog({
-                    title: "修改用户",
-                    modal: true,
-                    width: 400,
-                    height: 400,
-                    collapsible: true,
-                    maximizable: true,
-                    resizable: true,
-                    buttons: [{
-                        id: 'btnAdd',
-                        text: '确定修改',
-                        iconCls: 'icon-ok',
-                        handler: function () {
-                            $("#editFrame")[0].contentWindow.submitForm();
-                        }
-                    }, {
-                        id: 'btnCancel',
-                        text: '取消',
-                        iconCls: 'icon-cancel',
-                        handler: function () {
-                            $("#editFormDialogDiv").dialog("close");
-                        }
-                    }]
-                });
-            }
+
+            //弹出修改对话框之前为Iframe src属性赋值
+            $("#editFrame").attr("src", "/ActionInfo/Edit/" + id);
+
+
+
+            $("#editFormDialogDiv").css("display", "block");
+            $("#editFormDialogDiv").dialog({
+                title: "修改角色",
+                modal: true,
+                width: 400,
+                height: 450,
+                collapsible: true,
+                maximizable: true,
+                resizable: true,
+                buttons: [{
+                    id: 'btnAdd',
+                    text: '确定修改',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        $("#editFrame")[0].contentWindow.submitForm();
+                    }
+                }, {
+                    id: 'btnCancel',
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $("#editFormDialogDiv").dialog("close");
+                    }
+                }]
+
+            });
         }
 
         //修改成功后子容器调用
@@ -266,40 +265,45 @@
             initTable();
         }
 
-        //角色设置成功后子容器调用
-        function afterSetRole() {
-            $("#setRoleFormDialogDiv").dialog("close");
-            initTable();
-        }
-
-        //用户点击删除触发 弹出删除对话框
-        function deleteEvent() {
+        //点击删除触发 弹出删除对话框
+        function deleteEvent(id) {
             var selectedRows = $('#tt').datagrid("getSelections");
 
             //如果未选中数据 提示
             if (selectedRows.length <= 0) {
                 $.messager.alert("错误提示", "请选择要删除的数据 =_=", "error");
-            } else {
-                var ids = "";
-                //循环获取选中数据删除、
-                for (var key in selectedRows) {
-                    ids += selectedRows[key].ID + ",";
-                }
-                //获取准备删除的ID
-                $.messager.confirm('提示', '确认删除?', function (r) {
-                    if (r) {
-                        ids = ids.substr(0, ids.length - 1);
-                        $.post("/UserInfo/Delete",{ ids: ids },
-                            function (data) {
-                                if (data == "ok") {
-                                    initTable();
-                                } else {
-                                    $.messager.alert("提醒消息", "删除失败=_=", "error");
-                                }
-                            });
-                    }
-                });
+                return;
             }
+
+            var ids = "";
+            //循环获取选中数据删除、
+            for (var key in selectedRows) {
+                ids += selectedRows[key].ID + ",";
+            }
+            //获取准备删除的ID
+            $.messager.confirm('提示', '确认删除?', function (r) {
+                if (r) {
+                    ids = ids.substr(0, ids.length - 1);
+                    $.post("/ActionInfo/Delete",
+                        { ids: ids },
+                        function (data) {
+                            if (data == "OK") {
+                                initTable();
+                            } else {
+                                $.messager.alert("提醒消息", "删除失败=_=", "error");
+                            }
+                        });
+                }
+            });
+
+
+
+
+        }
+
+        //表单提交至后台
+        function subAddForm() {
+            $("#addFormDialogDiv form").submit();
         }
 
         //初始化隐藏
@@ -307,48 +311,36 @@
             $("#addFormDialogDiv").css("display", "none");
             $("#editFormDialogDiv").css("display", "none");
             $("#ssttDiv").css("display", "none");
-            $("#setRoleFormDialogDiv").css("display", "none");
+            $("#trIconUrl").css("display", "none");
         }
 
-        //用户设置角色触发 弹出角色设置对话框
-        function setRole(id) {
-            var selectedRows = $('#tt').datagrid("getSelections");
-            //如果未选中数据 提示
-            if (selectedRows.length != 1) {
-                $.messager.alert("错误提示", "请选择要一行预设置的用户 =_=", "error");
-            } else {
+        //点击是否菜单单选按钮触发
+        function bindCkbIsmenuClick() {
+            $("#ckbIsMenu").change(function () {
+                $("#trIconUrl").toggle();
+            });
 
-                $("#setRoleFrame").attr("src", "/UserInfo/SetRole/" + selectedRows[0].ID);
 
-                $("#setRoleFormDialogDiv").css("display", "block");
-                $("#setRoleFormDialogDiv").dialog({
-                    title: "角色设置",
-                    modal: true,
-                    width: 400,
-                    height: 400,
-                    collapsible: true,
-                    maximizable: true,
-                    resizable: true,
-                    buttons: [{
-                        id: 'btnAdd',
-                        text: '确定设置',
-                        iconCls: 'icon-ok',
-                        handler: function () {
-                            $("#setRoleFrame")[0].contentWindow.submitForm();
+        }
+
+        //点击上传按钮时触发
+        function bindUploadBtnClick() {
+            $("#btnUploadFile").click(function () {
+                $("#addFormDialogDiv form").ajaxSubmit({
+                    url: "/ActionInfo/UploadImage",
+                    type: "Post",
+                    success: function (data) {
+                        //把返回的url地址放到页面的隐藏域
+                        if (data === "no") {
+                            alert("上传失败!请检查文件类型");;
+                        } else {
+                            $("#MenuIcon").val(data);
+                            $("#uploadImg").html("<img src='" + data + "' style='width:60px;height:60px;' />");
                         }
-                    }, {
-                        id: 'btnCancel',
-                        text: '取消',
-                        iconCls: 'icon-cancel',
-                        handler: function () {
-                            $("#setRoleFormDialogDiv").dialog("close");
-                        }
-                    }]
-
+                    }
                 });
-            }
+            });
         }
-
 
     </script>
 
@@ -359,13 +351,13 @@
     <div>
 
         <table id="tt" style="width: 700px;" title="" iconcls="icon-edit"></table>
-        <!--用户多条件查询 开始-->
+        <!--多条件查询 开始-->
         <div id="ssttDiv" style="display: none">
 
 
             <table class="t1">
 
-                <tr><td>用户名搜索：</td><td><input type="text" id="txtSchName" name="txtSchName" /></td></tr>
+                <tr><td>角色名搜索：</td><td><input type="text" id="txtSchName" name="txtSchName" /></td></tr>
 
                 <tr><td>备注搜索：</td><td><input type="text" id="txtSchReamrk" name="txtSchReamrk" /></td></tr>
 
@@ -375,17 +367,15 @@
 
             @*</iframe>*@
         </div>
-        <!--用户多条件查询 结束-->
+        <!--多条件查询 结束-->
         <!--弹出添加对话框DIV 开始-->
         <div id="addFormDialogDiv" style="display: none">
-            @using (Ajax.BeginForm("Add", "UserInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
+            @using (Ajax.BeginForm("Add", "RoleInfo", new AjaxOptions() { OnSuccess = "afterAdd" }))
             {
                 <table class="t1">
 
-                    <tr><td>用户名：</td><td><input type="text" name="UName" /></td></tr>
-                    <tr><td>密码：</td><td><input type="text" name="Pwd" /></td></tr>
+                    <tr><td>角色名：</td><td><input type="text" name="RoleName" /></td></tr>
                     <tr><td>备注：</td><td><input type="text" name="Remark" /></td></tr>
-                    <tr><td>昵称：</td><td><input type="text" name="ShowName" /></td></tr>
                 </table>
             }
         </div>
@@ -396,7 +386,7 @@
 
                 <table class="t1">
 
-                    <tr><td>用户名：</td><td><input type="text" name="UName" /></td></tr>
+                    <tr><td>角色名：</td><td><input type="text" name="ActionName" /></td></tr>
                     <tr><td>密码：</td><td><input type="text" name="Pwd" /></td></tr>
                     <tr><td>备注：</td><td><input type="text" name="Remark" /></td></tr>
                     <tr><td>昵称：</td><td><input type="text" name="ShowName" /></td></tr>
@@ -405,13 +395,6 @@
             </iframe>
         </div>
         <!--弹出修改对话框DIV 结束-->
-        <!--弹出角色设置对话框DIV 开始-->
-        <div id="setRoleFormDialogDiv" style="display: none">
-            <iframe id="setRoleFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no">
-
-            </iframe>
-        </div>
-        <!--弹出角色设置对话框DIV 结束-->
 
     </div>
     <!--页面表格数据 结束-->

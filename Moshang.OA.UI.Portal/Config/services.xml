@@ -8,4 +8,7 @@
 
   <object name="ActionInfoService" type="Moshang.OA.BLL.ActionInfoService, Moshang.OA.BLL" singleton="false" >
   </object>
+
+  <object name="RoleInfoService" type="Moshang.OA.BLL.RoleInfoService, Moshang.OA.BLL" singleton="false" >
+  </object>
 </objects>

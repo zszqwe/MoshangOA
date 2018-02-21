@@ -15,6 +15,9 @@ namespace Moshang.OA.UI.Portal.Controllers
         // GET: UserInfo
         //UserInfoService UserInfoService =new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
+        public IRoleInfoService RoleInfoService { get; set; }
+
+        short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
 
         public ActionResult Index()
         {
@@ -66,8 +69,8 @@ namespace Moshang.OA.UI.Portal.Controllers
                     u.ModfiedOn,
                     u.Pwd
                 });
-            
-           
+
+
             //序列化实体注意导航属性依赖
             var data = new { total = queryParam.Total, rows = temp.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -99,6 +102,7 @@ namespace Moshang.OA.UI.Portal.Controllers
             UserInfoService.Update(userInfo);
             return Content("ok");
         }
+
         //删除
         public ActionResult Delete(string ids)
         {
@@ -118,7 +122,41 @@ namespace Moshang.OA.UI.Portal.Controllers
             return Content("ok");
         }
 
+        #region 设置角色
+        //角色
+        public ActionResult SetRole(int id)
+        {
+            int userId = id;
+            UserInfo user = UserInfoService.GetEntities(u => u.ID == id).FirstOrDefault();
+            ViewBag.AllRoles = RoleInfoService.GetEntities(r => r.DelFlag == delflagNormal).ToList();
+            ViewBag.ExitsRoles = (from r in user.RoleInfo select r.ID).ToList();
 
+            return View(user);
+        }
+
+        //为用户设置角色
+        public ActionResult ProcessSetRole(int UId)
+        {
+            List<int> setRoleIdList=new List<int>();
+            int roleId =0;
+            //获取当前用户
+            foreach (var key in Request.Form.AllKeys)
+            {
+                if (key.StartsWith("ckb_"))
+                {
+                    //遍历表单所有单选按钮
+                    roleId=int.Parse(key.Replace("ckb_", ""));
+                    setRoleIdList.Add(roleId);
+                }
+
+            }
+
+            UserInfoService.SetRole(UId, setRoleIdList);
+            return Content("ok");
+
+
+        }
+        #endregion
 
         #region Create
         public ActionResult Create()
