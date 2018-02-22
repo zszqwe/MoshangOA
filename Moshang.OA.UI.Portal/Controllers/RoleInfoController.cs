@@ -9,7 +9,7 @@ using Moshang.OA.Model.Param;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
-    public class RoleInfoController : Controller
+    public class RoleInfoController : BaseController
     {
         public IRoleInfoService RoleInfoService { get; set; }
         private short delflagNormal = (short) Moshang.OA.Model.Enum.DelFlagEnum.Normal;

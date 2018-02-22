@@ -12,7 +12,7 @@ using Moshang.OA.Model.Param;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
-    public class ActionInfoController : Controller
+    public class ActionInfoController : BaseController
     {
         short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
         public IActionInfoService ActionInfoService { get; set; }

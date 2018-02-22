@@ -7,7 +7,7 @@ using Moshang.OA.IBLL;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
-    public class OrderInfoController : Controller
+    public class OrderInfoController : BaseController
     {
         // GET: OrderInfo
         public IOrderInfoService OrderInfoService { get; set; }

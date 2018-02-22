@@ -362,3 +362,67 @@ System.IO.IOException: SerializationException thrown while trying to deserialize
    --- 内部异常堆栈跟踪的结尾 ---
    在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
    在 Memcached.ClientLibrary.MemcachedClient.Get(String key, Object hashCode, Boolean asString)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-02-22 19:42:48,341 [7] ERROR Memcached.ClientLibrary.MemcachedClient - SerializationException thrown while trying to deserialize for key: 9d0805b0-4388-47ec-9e3d-b69d7ef39281
+System.Runtime.Serialization.SerializationException: 无法找到程序集“EntityFrameworkDynamicProxies-Moshang.OA.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null”。
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryAssemblyInfo.GetAssembly()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.GetType(BinaryAssemblyInfo assemblyInfo, String name)
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectMap..ctor(String objectName, String[] memberNames, BinaryTypeEnum[] binaryTypeEnumA, Object[] typeInformationA, Int32[] memberAssemIds, ObjectReader objectReader, Int32 objectId, BinaryAssemblyInfo assemblyInfo, SizedArray assemIdToAssemblyTable)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryObjectWithMapTyped record)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryHeaderEnum binaryHeaderEnum)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
+   在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
+2018-02-22 19:42:48,350 [7] ERROR Memcached.ClientLibrary.MemcachedClient - Exception thrown while trying to get object from cache for key: 9d0805b0-4388-47ec-9e3d-b69d7ef39281
+System.IO.IOException: SerializationException thrown while trying to deserialize for key: 9d0805b0-4388-47ec-9e3d-b69d7ef39281 ---> System.Runtime.Serialization.SerializationException: 无法找到程序集“EntityFrameworkDynamicProxies-Moshang.OA.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null”。
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryAssemblyInfo.GetAssembly()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.GetType(BinaryAssemblyInfo assemblyInfo, String name)
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectMap..ctor(String objectName, String[] memberNames, BinaryTypeEnum[] binaryTypeEnumA, Object[] typeInformationA, Int32[] memberAssemIds, ObjectReader objectReader, Int32 objectId, BinaryAssemblyInfo assemblyInfo, SizedArray assemIdToAssemblyTable)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryObjectWithMapTyped record)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryHeaderEnum binaryHeaderEnum)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
+   在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
+   在 Memcached.ClientLibrary.MemcachedClient.Get(String key, Object hashCode, Boolean asString)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-02-22 19:44:41,859 [45] ERROR Memcached.ClientLibrary.MemcachedClient - SerializationException thrown while trying to deserialize for key: 78cae482-39fd-4681-8138-392dad7fa5d9
+System.Runtime.Serialization.SerializationException: 无法找到程序集“EntityFrameworkDynamicProxies-Moshang.OA.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null”。
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryAssemblyInfo.GetAssembly()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.GetType(BinaryAssemblyInfo assemblyInfo, String name)
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectMap..ctor(String objectName, String[] memberNames, BinaryTypeEnum[] binaryTypeEnumA, Object[] typeInformationA, Int32[] memberAssemIds, ObjectReader objectReader, Int32 objectId, BinaryAssemblyInfo assemblyInfo, SizedArray assemIdToAssemblyTable)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryObjectWithMapTyped record)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryHeaderEnum binaryHeaderEnum)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
+   在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
+2018-02-22 19:44:41,863 [45] ERROR Memcached.ClientLibrary.MemcachedClient - Exception thrown while trying to get object from cache for key: 78cae482-39fd-4681-8138-392dad7fa5d9
+System.IO.IOException: SerializationException thrown while trying to deserialize for key: 78cae482-39fd-4681-8138-392dad7fa5d9 ---> System.Runtime.Serialization.SerializationException: 无法找到程序集“EntityFrameworkDynamicProxies-Moshang.OA.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null”。
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryAssemblyInfo.GetAssembly()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.GetType(BinaryAssemblyInfo assemblyInfo, String name)
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectMap..ctor(String objectName, String[] memberNames, BinaryTypeEnum[] binaryTypeEnumA, Object[] typeInformationA, Int32[] memberAssemIds, ObjectReader objectReader, Int32 objectId, BinaryAssemblyInfo assemblyInfo, SizedArray assemIdToAssemblyTable)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryObjectWithMapTyped record)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.ReadObjectWithMapTyped(BinaryHeaderEnum binaryHeaderEnum)
+   在 System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   在 System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   在 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
+   在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Memcached.ClientLibrary.MemcachedClient.LoadItems(SockIO sock, Hashtable hm, Boolean asString)
+   在 Memcached.ClientLibrary.MemcachedClient.Get(String key, Object hashCode, Boolean asString)
+
+----------------------footer--------------------------
