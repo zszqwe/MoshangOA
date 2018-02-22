@@ -109,7 +109,15 @@
                         //弹出 设置角色对话框
                         setRole();
                     }
-                }
+                }, {
+                        id: 'btnSetAction',
+                        text: '设置特殊权限',
+                        iconCls: 'icon-redo',
+                        handler: function () {
+                            //弹出 设置特殊权限对话框
+                            setAction();
+                        }
+                    }
                 ],
                 onHeaderContextMenu: function (e, field) {
 
@@ -349,6 +357,45 @@
             }
         }
 
+        //设置特殊权限触发 弹出权限设置对话框
+        function setAction(id) {
+            var selectedRows = $('#tt').datagrid("getSelections");
+            //如果未选中数据 提示
+            if (selectedRows.length != 1) {
+                $.messager.alert("错误提示", "请选择要一行预设置的用户 =_=", "error");
+            } else {
+
+                $("#setActionFrame").attr("src", "/UserInfo/SetAction/" + selectedRows[0].ID);
+
+                $("#setActionFormDialogDiv").css("display", "block");
+                $("#setActionFormDialogDiv").dialog({
+                    title: "特殊权限设置",
+                    modal: true,
+                    width: 650,
+                    height: 500,
+                    collapsible: true,
+                    maximizable: true,
+                    resizable: true,
+                    buttons: [{
+                        id: 'btnAdd',
+                        text: '确定设置',
+                        iconCls: 'icon-ok',
+                        handler: function () {
+                            $("#setActionFrame")[0].contentWindow.submitForm();
+                        }
+                    }, {
+                        id: 'btnCancel',
+                        text: '取消',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            $("#setActionFormDialogDiv").dialog("close");
+                        }
+                    }]
+
+                });
+            }
+        }
+
 
     </script>
 
@@ -412,7 +459,11 @@
             </iframe>
         </div>
         <!--弹出角色设置对话框DIV 结束-->
-
+        <!--弹出特殊权限设置对话框DIV 开始-->
+        <div id="setActionFormDialogDiv" style="display: none">
+            <iframe id="setActionFrame" src="javascript:void(0)" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
+        </div>
+        <!--弹出特殊权限设置对话框DIV 结束-->
     </div>
     <!--页面表格数据 结束-->
 

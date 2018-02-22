@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/19/2018 21:47:26
+-- Date Created: 02/22/2018 16:34:15
 -- Generated from EDMX file: D:\Users\Administrator\Documents\Visual Studio 2015\Projects\Moshang.OA\Moshang.OA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -124,16 +124,17 @@ GO
 -- Creating table 'R_UserInfo_ActionInfo'
 CREATE TABLE [dbo].[R_UserInfo_ActionInfo] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [HasPermission] nvarchar(max)  NOT NULL,
-    [UserInfoId] int  NOT NULL,
-    [ActionInfoId] int  NOT NULL
+    [HasPermission] bit  NOT NULL,
+    [UserInfoID] int  NOT NULL,
+    [ActionInfoID] int  NOT NULL,
+    [DelFlag] int  NOT NULL
 );
 GO
 
 -- Creating table 'UserInfoExt'
 CREATE TABLE [dbo].[UserInfoExt] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [UserInfoId] nvarchar(max)  NOT NULL,
+    [UserInfoID] nvarchar(max)  NOT NULL,
     [Age] int  NOT NULL,
     [Phone] nvarchar(16)  NULL,
     [Email] nvarchar(max)  NULL,
@@ -274,10 +275,10 @@ ON [dbo].[ActionInfoRoleInfo]
     ([RoleInfo_ID]);
 GO
 
--- Creating foreign key on [UserInfoId] in table 'R_UserInfo_ActionInfo'
+-- Creating foreign key on [UserInfoID] in table 'R_UserInfo_ActionInfo'
 ALTER TABLE [dbo].[R_UserInfo_ActionInfo]
 ADD CONSTRAINT [FK_UserInfoR_UserInfo_ActionInfo]
-    FOREIGN KEY ([UserInfoId])
+    FOREIGN KEY ([UserInfoID])
     REFERENCES [dbo].[UserInfo]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -286,13 +287,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserInfoR_UserInfo_ActionInfo'
 CREATE INDEX [IX_FK_UserInfoR_UserInfo_ActionInfo]
 ON [dbo].[R_UserInfo_ActionInfo]
-    ([UserInfoId]);
+    ([UserInfoID]);
 GO
 
--- Creating foreign key on [ActionInfoId] in table 'R_UserInfo_ActionInfo'
+-- Creating foreign key on [ActionInfoID] in table 'R_UserInfo_ActionInfo'
 ALTER TABLE [dbo].[R_UserInfo_ActionInfo]
 ADD CONSTRAINT [FK_ActionInfoR_UserInfo_ActionInfo]
-    FOREIGN KEY ([ActionInfoId])
+    FOREIGN KEY ([ActionInfoID])
     REFERENCES [dbo].[ActionInfo]
         ([ID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -301,7 +302,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_ActionInfoR_UserInfo_ActionInfo'
 CREATE INDEX [IX_FK_ActionInfoR_UserInfo_ActionInfo]
 ON [dbo].[R_UserInfo_ActionInfo]
-    ([ActionInfoId]);
+    ([ActionInfoID]);
 GO
 
 -- --------------------------------------------------

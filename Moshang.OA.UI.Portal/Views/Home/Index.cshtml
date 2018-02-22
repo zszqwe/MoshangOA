@@ -1,4 +1,6 @@
-﻿
+﻿@using System.Text
+@using Moshang.OA.Model
+
 @{
     Layout = null;
 }
@@ -141,114 +143,131 @@
 
     </div>
     <!--------------网页工作区 start-------------->
-</body>
-<script type="text/javascript">
 
 
 
-    var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
-    var WINLAYOUTTOP = $("#layouttop").height();
-    var winlinksul = $("#winlinks ul");
 
-    //点击图标打开对话框
-    function f_open(url, title, icon) {
-        var win = $.ligerDialog.open(
-            {
-                height: 600,
-                url: url,
-                width: 750,
-                showMax: true,
-                showToggle: true,
-                showMin: true,
-                isResize: true,
-                modal: false,
-                title: title,
-                slide: false,
-                buttons: [
-                    {
-                        text: '确定',
-                        onclick: function (item, Dialog, index) {
-                            win.hide();
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+
+        var LINKWIDTH = 90, LINKHEIGHT = 90, TASKBARHEIGHT = 43;
+        var WINLAYOUTTOP = $("#layouttop").height();
+        var winlinksul = $("#winlinks ul");
+
+        //点击图标打开对话框
+        function f_open(url, title, icon) {
+            var win = $.ligerDialog.open(
+                {
+                    height: 600,
+                    url: url,
+                    width: 750,
+                    showMax: true,
+                    showToggle: true,
+                    showMin: true,
+                    isResize: true,
+                    modal: false,
+                    title: title,
+                    slide: false,
+                    buttons: [
+                        {
+                            text: '确定',
+                            onclick: function (item, Dialog, index) {
+                                win.hide();
+                            }
                         }
-                    }
-                ]
-            });
-        var task = jQuery.ligerui.win.tasks[win.id];
-        if (task) {
-            $(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
-        }
-        return win;
-    }
-
-
-    //任务数据
-    var links = [
-        { icon: '/Content/Images/Home/3DSMAX.png', title: '用户信息', url: '/UserInfo/Index' },
-        { icon: '/Content/Images/Home/3DSMAX.png', title: '权限信息', url: '/ActionInfo/Index' },
-        { icon: '/Content/Images/Home/3DSMAX.png', title: '角色信息', url: '/RoleInfo/Index' },
-        { icon: '/Content/Images/Home/3DSMAX.png', title: 'treegrid', url: '../grid/treegrid/treegrid.htm' },
-        { icon: '/Content/Images/Home/3DSMAX.png', title: '多表头', url: '../grid/mulheader/grid2.htm' },
-        { icon: '/Content/Images/Home/Program Files Folder.png', title: '固定列', url: '../grid/frozen/frozengrid.htm' },
-        { icon: '/Content/Images/Home/Program Files Folder.png', title: '可拖动', url: '../base/drag.htm' },
-        { icon: '/Content/Images/Home/Alien Folder.png', title: '树', url: '../tree/draggable.htm' },
-        { icon: '/Content/Images/Home/Xp-G5 006.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
-        { icon: '/Content/Images/Home/Xp-G5 006.png', title: '下拉框', url: '../comboBox/comboBoxGrid.htm' },
-        { icon: '/Content/Images/Home/Alien Folder.png', title: 'layout', url: '../layout/layoutFullHeight.htm' },
-        { icon: '/Content/Images/Home/Alien Folder.png', title: 'menu', url: '../menu/menubar.htm' },
-        { icon: '/Content/Images/Home/Xp-G5 006.png', title: 'tab', url: '../tab/tabHtml.htm' },
-        { icon: '/Content/Images/Home/3DSMAX.png', title: '分组', url: '../grid/groupable/checkbox.htm' }
-    ];
-
-    //自适应
-    function onResize() {
-        var linksHeight = $(window).height() - TASKBARHEIGHT - WINLAYOUTTOP;
-        var winlinks = $("#winlinks");
-        winlinks.height(linksHeight);
-        var colMaxNumber = parseInt(linksHeight / LINKHEIGHT); //一列最多显示几个快捷方式
-        for (var i = 0, l = links.length; i < l; i++) {
-            var link = links[i];
-            var jlink = $("li[linkindex=" + i + "]", winlinks);
-            var top = (i % colMaxNumber) * LINKHEIGHT, left = parseInt(i / colMaxNumber) * LINKWIDTH;
-            if (isNaN(top) || isNaN(left)) continue;
-            jlink.css({ top: top, left: left });
-        }
-
-    }
-
-    //图标初始化
-    function linksInit() {
-        for (var i = 0, l = links.length; i < l; i++) {
-            var link = links[i];
-            var jlink;
-            var jlink = $("<li></li>");
-            jlink.attr("linkindex", i);
-            jlink.append("<img src='" + link.icon + "' />");
-            jlink.append("<span>" + link.title + "</span>");
-            jlink.append("<div class='bg'></div>");
-            jlink.hover(function () {
-                $(this).addClass("l-over");
-            },
-                function () {
-                    $(this).removeClass("l-over");
-                }).click(function () {
-                    var linkindex = $(this).attr("linkindex");
-                    var link = links[linkindex];
-                    f_open(link.url, link.title, link.icon);
+                    ]
                 });
-            jlink.appendTo(winlinksul);
+            var task = jQuery.ligerui.win.tasks[win.id];
+            if (task) {
+                $(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
+            }
+            return win;
         }
 
-    }
+        @*@{
+            List<ActionInfo> menus = ViewBag.AllMenu;
+            StringBuilder sb=new StringBuilder();
+             foreach (var actionInfo in menus)
+             {
+                 sb.Append("{");
+                 sb.AppendFormat(" icon: '{0}', title: '{1}', url: '{2}' ", actionInfo.MenuIcon, actionInfo.ActionName, actionInfo.Url);
+                 sb.Append("},");
+             }
+            string str = sb.ToString().TrimEnd(',');
+        }*@
+
+        //任务数据
+        var links = [
+             @*@Html.Raw(str)*@
+        ];
+
+        //自适应
+        function onResize() {
+            var linksHeight = $(window).height() - TASKBARHEIGHT - WINLAYOUTTOP;
+            var winlinks = $("#winlinks");
+            winlinks.height(linksHeight);
+            var colMaxNumber = parseInt(linksHeight / LINKHEIGHT); //一列最多显示几个快捷方式
+            for (var i = 0, l = links.length; i < l; i++) {
+                var link = links[i];
+                var jlink = $("li[linkindex=" + i + "]", winlinks);
+                var top = (i % colMaxNumber) * LINKHEIGHT, left = parseInt(i / colMaxNumber) * LINKWIDTH;
+                if (isNaN(top) || isNaN(left)) continue;
+                jlink.css({ top: top, left: left });
+            }
+
+        }
+
+        //图标初始化
+        function linksInit() {
+            for (var i = 0, l = links.length; i < l; i++) {
+                var link = links[i];
+                var jlink;
+                var jlink = $("<li></li>");
+                jlink.attr("linkindex", i);
+                jlink.append("<img src='" + link.icon + "' />");
+                jlink.append("<span>" + link.title + "</span>");
+                jlink.append("<div class='bg'></div>");
+                jlink.hover(function () {
+                    $(this).addClass("l-over");
+                },
+                    function () {
+                        $(this).removeClass("l-over");
+                    }).click(function () {
+                        var linkindex = $(this).attr("linkindex");
+                        var link = links[linkindex];
+                        f_open(link.url, link.title, link.icon);
+                    });
+                jlink.appendTo(winlinksul);
+            }
+
+        }
 
 
 
-    $(window).resize(onResize);
-    $.ligerui.win.removeTaskbar = function () { }; //不允许移除
-    $.ligerui.win.createTaskbar(); //页面加载时创建任务栏
+        $(window).resize(onResize);
+        $.ligerui.win.removeTaskbar = function () { }; //不允许移除
+        $.ligerui.win.createTaskbar(); //页面加载时创建任务栏
 
-    linksInit();
-    onResize();
+        $.post("/Home/LoadUserMenu",
+            {},
+            function (data) {
+                links = data;
+                linksInit();
+                onResize();
+            });
+        //linksInit();
+        //onResize();
 
 
-</script>
+    </script>
+</body>
+
 </html>

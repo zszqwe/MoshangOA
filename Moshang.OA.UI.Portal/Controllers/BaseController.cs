@@ -16,10 +16,7 @@ namespace Moshang.OA.UI.Portal.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-
-
-            //TODO: 暂时去掉验证
-            return;
+            
 
             if (IsCheckUserLogin)
             {

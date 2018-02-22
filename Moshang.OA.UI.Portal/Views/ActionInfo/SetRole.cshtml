@@ -1,0 +1,69 @@
+﻿@using Moshang.OA.Model
+@model Moshang.OA.Model.ActionInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SetRole</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    
+    <script type="text/javascript">
+        function afterSetRole(data) {
+            if (data == "ok") {
+                window.parent.window.afterSetRole();
+            }
+        }
+
+        function submitForm() {
+            $("form").submit();
+        }
+    </script>
+    
+
+</head>
+<body>
+<div>
+    <h2>当前给权限：  @Model.ActionName 设置角色</h2>
+    <hr />
+    @{
+        List<RoleInfo> allRoles = ViewBag.AllRoles;
+        List<int> existRoleIdList = ViewBag.ExitsRoles;
+
+        using (Ajax.BeginForm("ProcessSetRole","ActionInfo",new AjaxOptions() {OnSuccess = "afterSetRole"}))
+        {
+            <input type="hidden" name="AId" value="@Model.ID" />
+
+            int i = 0;
+            foreach (var roleInfo in allRoles)
+            {
+                string strID = "ckb_" + roleInfo.ID;
+                    
+                if (++i % 3 == 0)
+                {
+                    <hr />
+                }
+                if (existRoleIdList.Contains(roleInfo.ID))
+                {
+                    <input type="checkbox" checked="checked" value="@strID" name="@strID" id="@strID" />
+                }
+                else
+                {
+                    <input type="checkbox" value="@strID" name="@strID" id="@strID" />
+                }
+                <label for="@strID">@roleInfo.RoleName</label>
+
+            }
+        }
+    }
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Moshang.OA.Model.ActionInfo>
+@using Moshang.OA.Model
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SetAction</title>
+    <link href="~/Content/TableStyle.css" rel="stylesheet" />
+
+    <link href="~/Content/jquery-easyui-1.5.4.1/themes/gray/easyui.css" rel="stylesheet" />
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Content/jquery-easyui-1.5.4.1/jquery.easyui.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".selCZ").change(function () {
+                var uId = $(this).attr("uId");
+                var actionId = $(this).attr("actionId");
+                var value = $(this).val();
+                
+                $.post("/UserInfo/SetUserAction", { UId: uId, ActionId: actionId, Value: value });
+            });
+
+            $(".btnDel").click(function () {
+                //后台删除数据。
+                if ($(".selCZ").val() != "-1") {
+                    $.post("/UserInfo/DeleteUserAction", { UId: $(this).attr("uId"), ActionId: $(this).attr("actionId") }, function (data) {
+                        if (data == "ok") {
+                            $.messager.show({
+                                width: 120,
+                                height: 50,
+                                timeout: 1000,
+                                msg: '删除成功',
+                                showType: 'show'
+                            });
+                        }
+                    });
+                } else {
+                    $.messager.show({
+                        width: 130,
+                        height: 50,
+                        timeout: 1000,
+                        msg: '未拥有该权限',
+                        showType: 'show'
+                    });
+                }
+            });
+
+
+        });
+    </script>
+
+
+</head>
+<body>
+    <div>
+        @{
+            UserInfo user = ViewBag.User;
+        }
+        <h3>为用户：<span style="color:skyblue"> @user.UName </span>设置特殊权限</h3>
+        @{
+
+            <table class="t1">
+                <tr>
+                    <th>权限Id</th>
+                    <th>权限名称</th>
+                    <th>权限地址</th>
+                    <th>请求方式</th>
+                    <th>操作</th>
+
+                </tr>
+
+                @foreach (var actionInfo in Model)
+                {
+                    string strId = "rd_" + actionInfo.ID;
+
+                    <tr>
+                        <td>@actionInfo.ID</td>
+                        <td>@actionInfo.ActionName</td>
+                        <td>@actionInfo.Url</td>
+                        <td>@actionInfo.HttpMethd</td>
+                        <td>
+                            <select class="selCZ" uId="@user.ID" actionId="@actionInfo.ID" >
+                                <option name="@strId" value="-1">未设置</option>
+                                <option name="@strId" value="1">允许</option>
+                                <option name="@strId" value="0">拒绝</option>
+                            </select>
+                            <input id="btnDelet" uId="@user.ID"  actionId="@actionInfo.ID" class="btnDel" type="button" name="@strId" value="清除" />
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+
+        }
+
+
+    </div>
+</body>
+</html>

@@ -16,7 +16,8 @@ namespace Moshang.OA.UI.Portal.Controllers
     {
         short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
         public IActionInfoService ActionInfoService { get; set; }
-
+        public IUserInfoService UserInfoService { get; set; }
+        public IRoleInfoService RoleInfoService { get; set; }
         // GET: ActionInfo
         public ActionResult Index()
         {
@@ -282,5 +283,41 @@ namespace Moshang.OA.UI.Portal.Controllers
         }
         #endregion
 
+
+        #region 设置角色
+        //角色
+        public ActionResult SetRole(int id)
+        {
+            int userId = id;
+            ActionInfo actionInfo = ActionInfoService.GetEntities(u => u.ID == id).FirstOrDefault();
+            ViewBag.AllRoles = RoleInfoService.GetEntities(r => r.DelFlag == delflagNormal).ToList();
+            ViewBag.ExitsRoles = (from r in actionInfo.RoleInfo select r.ID).ToList();
+
+            return View(actionInfo);
+        }
+
+        //为角色设置角色
+        public ActionResult ProcessSetRole(int AId)
+        {
+            List<int> setRoleIdList = new List<int>();
+            int roleId = 0;
+            //获取当前用户
+            foreach (var key in Request.Form.AllKeys)
+            {
+                if (key.StartsWith("ckb_"))
+                {
+                    //遍历表单所有单选按钮
+                    roleId = int.Parse(key.Replace("ckb_", ""));
+                    setRoleIdList.Add(roleId);
+                }
+
+            }
+
+            ActionInfoService.SetRole(AId, setRoleIdList);
+            return Content("ok");
+
+
+        }
+        #endregion
     }
 }

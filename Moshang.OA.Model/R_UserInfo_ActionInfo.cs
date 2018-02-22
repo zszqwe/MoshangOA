@@ -16,9 +16,10 @@ namespace Moshang.OA.Model
     public partial class R_UserInfo_ActionInfo
     {
         public int ID { get; set; }
-        public string HasPermission { get; set; }
-        public int UserInfoId { get; set; }
-        public int ActionInfoId { get; set; }
+        public bool HasPermission { get; set; }
+        public int UserInfoID { get; set; }
+        public int ActionInfoID { get; set; }
+        public int DelFlag { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
         public virtual ActionInfo ActionInfo { get; set; }

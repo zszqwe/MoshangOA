@@ -34,9 +34,9 @@ namespace Moshang.OA.BLL
         }
 
 
-        public bool SetRole(int userId, List<int> roleIds)
+        public bool SetRole(int actionId, List<int> roleIds)
         {
-            var actionInfo = DbSession.ActionInfoDal.GetEntities(u => u.ID == userId).FirstOrDefault();
+            var actionInfo = DbSession.ActionInfoDal.GetEntities(a => a.ID == actionId).FirstOrDefault();
             actionInfo.RoleInfo.Clear();//全剁掉。
 
             var allRoles = DbSession.RoleInfoDal.GetEntities(r => roleIds.Contains(r.ID));

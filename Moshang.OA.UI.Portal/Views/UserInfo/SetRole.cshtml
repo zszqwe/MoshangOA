@@ -45,10 +45,6 @@
                 {
                     string strID = "ckb_" + roleInfo.ID;
                     
-                    if (++i % 3 == 0)
-                    {
-                        <hr />
-                    }
                     if (existRoleIdList.Contains(roleInfo.ID))
                     {
                         <input type="checkbox" checked="checked" value="@strID" name="@strID" id="@strID" />
@@ -58,7 +54,10 @@
                         <input type="checkbox" value="@strID" name="@strID" id="@strID" />
                     }
                     <label for="@strID">@roleInfo.RoleName</label>
-
+                    if (++i % 3 == 0)
+                    {
+                        <hr />
+                    }
                 }
             }
         }

@@ -22,7 +22,7 @@ namespace Moshang.OA.Model
         }
     
         public int ID { get; set; }
-        public string UserInfoId { get; set; }
+        public string UserInfoID { get; set; }
         public int Age { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

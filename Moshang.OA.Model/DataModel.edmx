@@ -97,16 +97,17 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HasPermission" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserInfoId" Type="int" Nullable="false" />
-    <Property Name="ActionInfoId" Type="int" Nullable="false" />
+    <Property Name="HasPermission" Type="bit" Nullable="false" />
+    <Property Name="UserInfoID" Type="int" Nullable="false" />
+    <Property Name="ActionInfoID" Type="int" Nullable="false" />
+    <Property Name="DelFlag" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UserInfoExt">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserInfoId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserInfoID" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Age" Type="int" Nullable="false" />
     <Property Name="Phone" Type="nvarchar" Nullable="true" MaxLength="16" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
@@ -148,7 +149,7 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="R_UserInfo_ActionInfo">
-        <PropertyRef Name="UserInfoId" />
+        <PropertyRef Name="UserInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -160,7 +161,7 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="R_UserInfo_ActionInfo">
-        <PropertyRef Name="ActionInfoId" />
+        <PropertyRef Name="ActionInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -318,11 +319,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HasPermission" Type="String" Nullable="false" />
+          <Property Name="HasPermission" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="DataModel.UserInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="UserInfo" />
-          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActionInfo" Relationship="DataModel.ActionInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="ActionInfo" />
-          <Property Name="ActionInfoId" Type="Int32" Nullable="false" />
+          <Property Name="ActionInfoID" Type="Int32" Nullable="false" />
+          <Property Name="DelFlag" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="UserInfoRoleInfo">
           <End Type="DataModel.UserInfo" Role="UserInfo" Multiplicity="*" />
@@ -340,7 +342,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="R_UserInfo_ActionInfo">
-              <PropertyRef Name="UserInfoId" />
+              <PropertyRef Name="UserInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,7 +354,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="R_UserInfo_ActionInfo">
-              <PropertyRef Name="ActionInfoId" />
+              <PropertyRef Name="ActionInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -361,7 +363,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserInfoId" Type="String" Nullable="false" />
+          <Property Name="UserInfoID" Type="String" Nullable="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="16" Nullable="true" />
           <Property Name="Email" Type="String" Nullable="true" />
@@ -431,8 +433,9 @@
         <MappingFragment StoreEntitySet="R_UserInfo_ActionInfo">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="HasPermission" ColumnName="HasPermission" />
-          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
-          <ScalarProperty Name="ActionInfoId" ColumnName="ActionInfoId" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="ActionInfoID" ColumnName="ActionInfoID" />
+          <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -440,7 +443,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(DataModel.UserInfoExt)">
         <MappingFragment StoreEntitySet="UserInfoExt">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="Age" ColumnName="Age" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="Email" ColumnName="Email" />

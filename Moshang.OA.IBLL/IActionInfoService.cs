@@ -10,6 +10,6 @@ namespace Moshang.OA.IBLL
     {
         IQueryable<ActionInfo> LoagPageData(Model.Param.ActionQueryParam actionQueryParam);
 
-        bool SetRole(int userId, List<int> roleIds);
+        bool SetRole(int actionId, List<int> roleIds);
     }
 }

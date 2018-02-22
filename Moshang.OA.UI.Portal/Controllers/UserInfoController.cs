@@ -13,9 +13,10 @@ namespace Moshang.OA.UI.Portal.Controllers
     public class UserInfoController : BaseController
     {
         // GET: UserInfo
-        //UserInfoService UserInfoService =new UserInfoService();
         public IUserInfoService UserInfoService { get; set; }
         public IRoleInfoService RoleInfoService { get; set; }
+        public IActionInfoService ActionInfoService { get; set; }
+        public IR_UserInfo_ActionInfoService R_UserInfo_ActionInfoService { get; set; }
 
         short delflagNormal = (short)Moshang.OA.Model.Enum.DelFlagEnum.Normal;
 
@@ -137,15 +138,15 @@ namespace Moshang.OA.UI.Portal.Controllers
         //为用户设置角色
         public ActionResult ProcessSetRole(int UId)
         {
-            List<int> setRoleIdList=new List<int>();
-            int roleId =0;
+            List<int> setRoleIdList = new List<int>();
+            int roleId = 0;
             //获取当前用户
             foreach (var key in Request.Form.AllKeys)
             {
                 if (key.StartsWith("ckb_"))
                 {
                     //遍历表单所有单选按钮
-                    roleId=int.Parse(key.Replace("ckb_", ""));
+                    roleId = int.Parse(key.Replace("ckb_", ""));
                     setRoleIdList.Add(roleId);
                 }
 
@@ -157,6 +158,56 @@ namespace Moshang.OA.UI.Portal.Controllers
 
         }
         #endregion
+
+        #region 设置特殊权限
+
+        //设置权限
+        public ActionResult SetAction(int id)
+        {
+            ViewBag.User = UserInfoService.GetEntities(u => u.ID == id).FirstOrDefault();
+            ViewData.Model = ActionInfoService.GetEntities(a => a.DelFlag == delflagNormal).ToList();
+            return View();
+        }
+
+        //删除特殊权限
+        public ActionResult DeleteUserAction(int UId, int ActionId)
+        {
+            var rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoID == ActionId && r.UserInfoID == UId)
+                 .FirstOrDefault();
+            if (rUserAction != null)
+            {
+                //rUserAction.DelFag =(short)Moshang.OA.Model.Enum.DelFlagEnum.Deleted;
+                R_UserInfo_ActionInfoService.DeleteListByLogical(new List<int>(rUserAction.ID));
+            }
+
+
+            return Content("ok");
+        }
+
+        //
+        public ActionResult SetUserAction(int UId, int ActionId, int Value)
+        {
+            var rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoID == ActionId && r.UserInfoID == UId && r.DelFlag == delflagNormal)
+                .FirstOrDefault();
+            if (rUserAction != null)
+            {
+                rUserAction.HasPermission = Value == 1 ? true : false;
+                R_UserInfo_ActionInfoService.Update(rUserAction);
+            }
+            else
+            {
+                R_UserInfo_ActionInfo rUserInfoActionInfo = new R_UserInfo_ActionInfo();
+                rUserInfoActionInfo.ActionInfoID = ActionId;
+                rUserInfoActionInfo.UserInfoID = UId;
+                rUserInfoActionInfo.HasPermission = Value == 1 ? true : false;
+                rUserInfoActionInfo.DelFlag = delflagNormal;
+                R_UserInfo_ActionInfoService.Add(rUserInfoActionInfo);
+            }
+
+            return Content("ok");
+        }
+        #endregion
+
 
         #region Create
         public ActionResult Create()
