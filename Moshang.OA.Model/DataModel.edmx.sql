@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/22/2018 16:34:15
+-- Date Created: 02/23/2018 17:20:31
 -- Generated from EDMX file: D:\Users\Administrator\Documents\Visual Studio 2015\Projects\Moshang.OA\Moshang.OA.Model\DataModel.edmx
 -- --------------------------------------------------
 
@@ -116,7 +116,7 @@ CREATE TABLE [dbo].[ActionInfo] (
     [HttpMethd] nvarchar(32)  NOT NULL,
     [ActionName] nvarchar(32)  NOT NULL,
     [IsMenu] bit  NOT NULL,
-    [MenuIcon] nvarchar(512)  NOT NULL,
+    [MenuIcon] nvarchar(512)  NULL,
     [Sort] int  NOT NULL
 );
 GO

@@ -192,7 +192,7 @@
             return win;
         }
 
-        @*@{
+        @{
             List<ActionInfo> menus = ViewBag.AllMenu;
             StringBuilder sb=new StringBuilder();
              foreach (var actionInfo in menus)
@@ -202,11 +202,11 @@
                  sb.Append("},");
              }
             string str = sb.ToString().TrimEnd(',');
-        }*@
+        }
 
         //任务数据
         var links = [
-             @*@Html.Raw(str)*@
+             @Html.Raw(str)
         ];
 
         //自适应
@@ -256,15 +256,15 @@
         $.ligerui.win.removeTaskbar = function () { }; //不允许移除
         $.ligerui.win.createTaskbar(); //页面加载时创建任务栏
 
-        $.post("/Home/LoadUserMenu",
-            {},
-            function (data) {
-                links = data;
-                linksInit();
-                onResize();
-            });
-        //linksInit();
-        //onResize();
+        //$.post("/Home/LoadUserMenu",
+        //    {},
+        //    function (data) {
+        //        links = data;
+        //        linksInit();
+        //        onResize();
+        //    });
+        linksInit();
+        onResize();
 
 
     </script>

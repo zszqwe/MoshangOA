@@ -72,6 +72,8 @@ namespace Moshang.OA.UI.Portal.Controllers
                 }
 
                 string url = Request.Url.AbsolutePath;
+                string[] splitArr = url.Split('/');
+                string newStrurl = splitArr[0]+"/" + splitArr[1] + "/" + splitArr[2];
                 string httpMethod = Request.HttpMethod.ToLower();
 
                 //通过容器获取
@@ -85,7 +87,7 @@ namespace Moshang.OA.UI.Portal.Controllers
                     ctx.GetObject("UserInfoService") as IUserInfoService;
 
                 var actionInfo =
-                actionInfoService.GetEntities(a => a.Url.ToLower() == url && a.HttpMethd.ToLower() == httpMethod).FirstOrDefault();
+                actionInfoService.GetEntities(a => a.Url.ToLower()== newStrurl && a.HttpMethd.ToLower() == httpMethod).FirstOrDefault();
 
                 if (actionInfo == null)
                 {

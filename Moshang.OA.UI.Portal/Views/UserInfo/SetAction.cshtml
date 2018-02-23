@@ -27,7 +27,7 @@
                 var uId = $(this).attr("uId");
                 var actionId = $(this).attr("actionId");
                 var value = $(this).val();
-                
+
                 $.post("/UserInfo/SetUserAction", { UId: uId, ActionId: actionId, Value: value });
             });
 
@@ -66,6 +66,8 @@
     <div>
         @{
             UserInfo user = ViewBag.User;
+            List<R_UserInfo_ActionInfo> listrua = ViewBag.RUA;
+            int i = 0;
         }
         <h3>为用户：<span style="color:skyblue"> @user.UName </span>设置特殊权限</h3>
         @{
@@ -90,16 +92,25 @@
                         <td>@actionInfo.Url</td>
                         <td>@actionInfo.HttpMethd</td>
                         <td>
-                            <select class="selCZ" uId="@user.ID" actionId="@actionInfo.ID" >
-                                <option name="@strId" value="-1">未设置</option>
-                                <option name="@strId" value="1">允许</option>
-                                <option name="@strId" value="0">拒绝</option>
+                            <select class="selCZ" uId="@user.ID" actionId="@actionInfo.ID">
+                                @{
+                                        var rua = listrua[i++];
+                                        string strhast = (rua.HasPermission == true) ?
+                                        "selected= 'selected'" : "";
+                                    string strhasf = (rua.HasPermission == false) ?
+                                        "selected= 'selected'" : "";
+
+                                        <option name="@strId"  value="-1">未设置</option>
+                                        <option name="@strId" @strhast value="1">允许</option>
+                                    <option name="@strId" @strhasf  value="0">拒绝</option>
+
+                                }
                             </select>
-                            <input id="btnDelet" uId="@user.ID"  actionId="@actionInfo.ID" class="btnDel" type="button" name="@strId" value="清除" />
+                            <input id="btnDelet" uId="@user.ID" actionId="@actionInfo.ID" class="btnDel" type="button" name="@strId" value="清除" />
                         </td>
                     </tr>
 
-                }
+                                    }
 
             </table>
 

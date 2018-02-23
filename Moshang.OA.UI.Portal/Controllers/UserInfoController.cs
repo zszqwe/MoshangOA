@@ -10,6 +10,8 @@ using Moshang.OA.Model.Param;
 
 namespace Moshang.OA.UI.Portal.Controllers
 {
+    
+
     public class UserInfoController : BaseController
     {
         // GET: UserInfo
@@ -91,6 +93,7 @@ namespace Moshang.OA.UI.Portal.Controllers
         }
 
         //修改
+        
         public ActionResult Edit(int id)
         {
             ViewData.Model = UserInfoService.GetEntities(u => u.ID == id).FirstOrDefault();
@@ -161,13 +164,37 @@ namespace Moshang.OA.UI.Portal.Controllers
 
         #region 设置特殊权限
 
-        //设置权限
+        //获取权限
+
+
+            
+
         public ActionResult SetAction(int id)
         {
+
             ViewBag.User = UserInfoService.GetEntities(u => u.ID == id).FirstOrDefault();
+
+            ViewBag.RUA = R_UserInfo_ActionInfoService.GetEntities(r => r.UserInfoID == id&&r.DelFlag==delflagNormal).ToList();
+
             ViewData.Model = ActionInfoService.GetEntities(a => a.DelFlag == delflagNormal).ToList();
+
             return View();
         }
+
+        ////设置默认特殊权限
+        //public ActionResult SetDefaultUserAction(int UId, int ActionId)
+        //{
+        //    var rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoID == ActionId && r.UserInfoID == UId)
+        //        .ToList();
+        //    //if (rUserAction != null)
+        //    //{
+        //    //    //rUserAction.DelFag =(short)Moshang.OA.Model.Enum.DelFlagEnum.Deleted;
+        //    //    R_UserInfo_ActionInfoService.DeleteListByLogical(new List<int>(rUserAction.ID));
+        //    //}
+
+
+        //    return Content("ok");
+        //}
 
         //删除特殊权限
         public ActionResult DeleteUserAction(int UId, int ActionId)
@@ -184,7 +211,7 @@ namespace Moshang.OA.UI.Portal.Controllers
             return Content("ok");
         }
 
-        //
+        //获设置用户权限
         public ActionResult SetUserAction(int UId, int ActionId, int Value)
         {
             var rUserAction = R_UserInfo_ActionInfoService.GetEntities(r => r.ActionInfoID == ActionId && r.UserInfoID == UId && r.DelFlag == delflagNormal)
