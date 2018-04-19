@@ -86,6 +86,8 @@ namespace Moshang.OA.UI.Portal.Controllers
                 IUserInfoService UserInfoService =
                     ctx.GetObject("UserInfoService") as IUserInfoService;
 
+
+                //真·奥义·权限校验
                 var actionInfo =
                 actionInfoService.GetEntities(a => a.Url.ToLower()== newStrurl && a.HttpMethd.ToLower() == httpMethod).FirstOrDefault();
 
@@ -111,7 +113,7 @@ namespace Moshang.OA.UI.Portal.Controllers
                     }
                 }
 
-                //
+                //真·奥义·角色校验
                 var user = UserInfoService.GetEntities(u => u.ID == LoginUser.ID).FirstOrDefault();
 
                 var allRoles = from r in user.RoleInfo
